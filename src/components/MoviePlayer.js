@@ -62,8 +62,7 @@ const MoviePlayer = () => {
                 <div className="movie-details">
                     <h3>GIA THIÊN</h3>
                     <p>
-                        Phim bộ độ nét cao miễn phí trên web A-E. Gia Thiên là bộ phim chuyển thể từ tiểu thuyết cùng tên của tác giả Thần Đông. Bộ phim kể về hành trình tu luyện của Diệp Phàm, một chàng trai trẻ từ Trái Đất bị đưa đến một thế giới tu tiên đầy bí ẩn. Tại đây, anh phải đối mặt với nhiều thử thách, kẻ thù mạnh mẽ, và những bí mật kinh thiên động địa liên quan đến vận mệnh của vũ trụ. Bộ phim hứa hẹn mang đến những cảnh quay hoành tráng, kỹ xảo đẹp mắt cùng câu chuyện hấp dẫn, lôi cuốn người xem.
-                    </p>
+                        Già Thiên kể về Diệp Phàm, một chàng trai ở thế giới hiện tại vô tình bị hút vào chiếc quan tài được kéo bởi chín con rồng, được đưa đến mốt thế giới cổ đại, một thế giới tiên hiệp rộng lớn, kỳ dị và đầy bí ẩn. Hành trình của Diệp Phàm chông gai, và đầy nguy hiểm rình rập, luôn luôn cận kề cái chết, nhưng với sự kiên trì và nghị lực, Diệp Phàm ngày càng nâng cao thực lực bản thân, bước vào con đường tu tiên gian khổ.                    </p>
                 </div>
             </div>
 
