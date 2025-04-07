@@ -5,22 +5,24 @@ import Home from "./pages/Home"; // Import giao diện Trang chủ
 import TheLoai from "./pages/TheLoai";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import MoviePlayer from "./components/MoviePlayer";
 
 
 function App() {
   return (
     <div className="App">
 
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} /> {/* Trang chủ */}
-        <Route path="/dang-anime" element={<DangAnime />} /> {/* Dạng Anime */}
-        <Route path="/the-loai" element={<TheLoai />} /> {/* Dạng Anime */}
-        <Route path="/login" element={<Login/>}></Route>
-        <Route path="register" element={<Register/>}></Route>
-      </Routes>
-    </Router>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} /> {/* Trang chủ */}
+          <Route path="/dang-anime" element={<DangAnime />} /> {/* Dạng Anime */}
+          <Route path="/the-loai" element={<TheLoai />} /> {/* Dạng Anime */}
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="register" element={<Register />}></Route>
+          <Route path="/movie/:id" element={<MoviePlayer />} /> {/* Trang phát video */}
+        </Routes>
+      </Router>
     </div>
   );
 }
