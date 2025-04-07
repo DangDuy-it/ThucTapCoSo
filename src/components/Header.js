@@ -1,8 +1,7 @@
-"use client"
+
 import '../styles/Header.css';
 import { Link } from "react-router-dom";
 function Header(){
-
   return(
   <nav>
       <div className= "Logo">

@@ -34,7 +34,7 @@ function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)} 
                     required
                 />
-                <a href="#" className="forgot">Quên mật khẩu?</a>
+                <button type="button" className="link-style">Quên mật khẩu?</button>
                 <button type="submit" className="btn">Đăng Nhập</button>
             </form>
 

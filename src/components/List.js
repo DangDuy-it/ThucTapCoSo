@@ -1,42 +1,59 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import '../styles/AnimeList.css';
 
-import { useState, useEffect } from 'react';
-import {AnimeList} from './Datalist';
-import '../styles/AnimeList.css'; 
-import anime1 from '../picture/anime1.jpg';
+function List() {
+    const [animeList, setAnimeList] = useState([]);
 
-function List(){
-    console.log(AnimeList);
-    return(
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/movies')
+            .then(res => {
+                setAnimeList(res.data);
+            })
+            .catch(err => console.error("Lỗi:", err));
+    }, []);
+
+    return (
         <div className="list-main">
             <div className="tag">
                 <li>MỚI CẬP NHẬT</li>
             </div>
             <div className="list">
-            {AnimeList.map((item,index)=>
-                <AnimeItem key={item.id} title={item.title} image={item.image}></AnimeItem>
-            )}
+                {animeList.map((item) => (
+                    <AnimeItem 
+                        key={item.id} 
+                        title={item.title} 
+                        image_url={item.image_url} 
+                    />
+                ))}
             </div>
             <div className="more">
                 <ul>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
+                    <li><button className="page-link">1</button></li>
+                    <li><button className="page-link">2</button></li>
                 </ul>
             </div>
         </div>
-    )
+    );
 }
-export default List;
 
-function AnimeItem(props){
-    console.log(props);
-    return(
+function AnimeItem({ title, image_url }) {
+    return (
         <div className="anime-item">
             <div className="anime-image">
-                <img src={props.image} alt="" />
+                <img 
+                    src={image_url || '/placeholder.jpg'} 
+                    alt={title}
+                    onError={(e) => {
+                        e.target.src = '/placeholder.jpg';
+                    }}
+                />
             </div>
             <div className="anime-info">
-                <h3 className="title">{props.title}</h3>
+                <h3 className="title">{title}</h3>
             </div>
         </div>
-    )
+    );
 }
+
+export default List;
