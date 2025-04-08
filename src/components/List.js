@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/AnimeList.css';
 
@@ -20,11 +21,16 @@ function List() {
             </div>
             <div className="list">
                 {animeList.map((item) => (
-                    <AnimeItem 
-                        key={item.id} 
-                        title={item.title} 
-                        image_url={item.image_url} 
-                    />
+                    <Link 
+                        to={`/movie/${item.id}`} 
+                        key={item.id}
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <AnimeItem 
+                            title={item.title} 
+                            image_url={item.image_url} 
+                        />
+                    </Link>
                 ))}
             </div>
             <div className="more">
