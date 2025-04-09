@@ -10,6 +10,7 @@ import MoviePlayer from "./components/MoviePlayer";
 function App() {
   return (
     <div className="App">
+
     <Router>
       <Header />
       <Routes>

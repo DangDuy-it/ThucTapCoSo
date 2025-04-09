@@ -2,7 +2,6 @@
 // import anime1 from '../images/anime1.jpg';
 
 
-
 // export const AnimeList = [
 //     { id: 1, title: "Phim A", image: "/images/anime1.jpg", videoUrl: "path/to/videoA.mp4" },
 //     { id: 2, title: "Phim B", image: "/images/anime1.jpg", videoUrl: "path/to/videoB.mp4" },
@@ -20,4 +19,3 @@
 //     { id: 14, title: "Phim C", image: "/images/anime1.jpg", videoUrl: "path/to/videoC.mp4" },
 //     { id: 15, title: "Phim D", image: "/images/anime1.jpg", videoUrl: "path/to/videoD.mp4" },
 // ];
-

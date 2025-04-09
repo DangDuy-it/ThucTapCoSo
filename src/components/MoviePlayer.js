@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import '../styles/MoviePlayer.css';
@@ -93,4 +92,3 @@ const MoviePlayer = () => {
 };
 
 export default MoviePlayer;
-

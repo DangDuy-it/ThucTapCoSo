@@ -128,3 +128,16 @@ p {
         font-size: 14px;
     }
 }
+
+.success-message {
+    color: green;
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: center;
+}
+.link-style {
+    cursor: pointer;
+    display: block;
+    margin: 10px 0;
+    text-align: right;
+}
