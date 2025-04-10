@@ -96,3 +96,32 @@ nav {
 .Login:hover {
   background: aquamarine;
 }
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #d9363e;
+}
+
+.user-name {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.user-name:hover {
+  text-decoration: underline;
+}

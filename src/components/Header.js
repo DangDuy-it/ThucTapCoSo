@@ -1,10 +1,49 @@
 "use client";
-import React from "react";
-import '../styles/Header.css';
-import { Link } from "react-router-dom";
-import logo_web from '../picture/logo-1.webp';
+import React, { useEffect, useState } from "react";
+import "../styles/Header.css";
+import { Link, useNavigate } from "react-router-dom";
+import logo_web from "../picture/logo-1.webp";
 
 function Header() {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  // Hàm để lấy thông tin user từ localStorage
+  const updateUserFromStorage = () => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+    } else {
+      setUser(null);
+    }
+  };
+
+  // Cập nhật user khi component mount
+  useEffect(() => {
+    updateUserFromStorage();
+  }, []);
+
+  // Lắng nghe sự kiện tùy chỉnh để cập nhật user
+  useEffect(() => {
+    const handleUserChange = () => {
+      updateUserFromStorage();
+    };
+
+    window.addEventListener("userChanged", handleUserChange);
+    return () => {
+      window.removeEventListener("userChanged", handleUserChange);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    window.dispatchEvent(new Event("userChanged"));
+    navigate("/login");
+  };
+
   return (
     <nav>
       <div className="Logo">
@@ -57,9 +96,20 @@ function Header() {
             <input placeholder="Tìm kiếm" type="text" />
           </li>
           <li>
-            <Link to="/login" className="Login">
-              Đăng Nhập
-            </Link>
+            {user ? (
+              <div className="user-info">
+                <Link to="/profile" className="user-name">
+                  Xin chào, {user.user_name || user.email || "Người dùng"}
+                </Link>
+                <button onClick={handleLogout} className="logout-btn">
+                  Đăng Xuất
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className="Login">
+                Đăng Nhập
+              </Link>
+            )}
           </li>
         </ul>
       </div>

@@ -1,31 +1,58 @@
 "use client";
-import React, { useState } from 'react';
-import '../styles/Login.css';
+import React, { useState } from "react";
+import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError("");
         try {
-            const res = await axios.post('http://localhost:3001/login', {
+            const res = await axios.post("http://localhost:3001/login", {
                 email,
-                password
+                password,
             });
-            console.log(res.data);
-            navigate('/');
+            // Kiểm tra dữ liệu từ API
+            if (!res.data.user) {
+                throw new Error("Dữ liệu người dùng không hợp lệ từ API /login");
+            }
+            // Lưu token và thông tin user vào localStorage
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+            toast.success("Đăng nhập thành công!", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            // Gửi sự kiện để thông báo rằng user đã thay đổi
+            window.dispatchEvent(new Event("userChanged"));
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
         } catch (err) {
-            setError(err.response?.data?.error || 'Đăng nhập thất bại');
+            console.error("Lỗi khi đăng nhập:", err);
+            setError(err.response?.data?.error || "Đăng nhập thất bại");
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className="container">
+            <ToastContainer />
             <h2>Đăng Nhập</h2>
             <form className="form" onSubmit={handleSubmit}>
                 <label>Email</label>
@@ -45,13 +72,19 @@ function LoginForm() {
                     required
                 />
                 {error && <p className="error-message">{error}</p>}
-                {/* Thay button bằng span */}
-                <span className="link-style" onClick={() => alert('Chức năng khôi phục mật khẩu đang phát triển!')}>
+                <Link to="/forgot-password" className="link-style">
                     Quên mật khẩu?
-                </span>
-                <button type="submit" className="btn">Đăng Nhập</button>
+                </Link>
+                <button type="submit" className="btn" disabled={loading}>
+                    {loading ? "Đang xử lý..." : "Đăng Nhập"}
+                </button>
             </form>
-            <p>Chưa có tài khoản? <Link to="/register" className="register-link">Đăng kí</Link></p>
+            <p>
+                Chưa có tài khoản?{" "}
+                <Link to="/register" className="register-link">
+                    Đăng kí
+                </Link>
+            </p>
         </div>
     );
 }
