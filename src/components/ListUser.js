@@ -12,8 +12,8 @@ function ListUser() {
         .catch((err) => console.error('Lỗi lấy danh sách user:', err));
     }, []);
   return (
-    <div className="list-user">
-      <div className="tag">
+    <div className="list-users">
+      <div className="list-user-tag">
         <li>Quản lý tài khoản</li>
       </div>
       {/* Header row */}
@@ -25,7 +25,7 @@ function ListUser() {
       </div>
 
       {/* User list */}
-      <div className="list">
+      <div className="list-user">
         {users.map((user) => (
           <Link
             to={`/user/${user.user_id}`}

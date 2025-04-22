@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/Slider.css";
 import { DataSlider } from "./Dataslider";
-import {Link} from 'react-router-dom';
+
 
 const AnimeSlider=() => {
     const Settings={

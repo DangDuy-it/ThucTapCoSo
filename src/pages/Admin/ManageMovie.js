@@ -1,5 +1,5 @@
-import '../styles/Home.css';
-import MovieList from '../components/ListMovie';
+import '../../styles/Home.css';
+import MovieList from '../../components/ListMovie';
 
 function Home(){
     return(

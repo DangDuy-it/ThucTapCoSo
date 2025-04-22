@@ -15,14 +15,14 @@ function AdminList() {
     }, []);
 
     return (
-        <div className="list-main">
-            <div className="tag">
+        <div className="list-movies">
+            <div className="list-movie-tag">
                 <li>Quản lý phim</li>
             </div>
             <div className="button-add">
                 <button>THÊM PHIM</button>
             </div>
-            <div className="list">
+            <div className="list-movie">
                 {animeList.map((item) => (
                     <AnimeItem
                         key={item.movie_id}
@@ -64,8 +64,8 @@ function AnimeItem({movie_id, title, image_url, genre, year, duration, episodes,
     };
 
     return (
-        <div className="anime-item">
-            <div className="anime-image">
+        <div className="movie-item">
+            <div className="movie-image">
                 <img
                     src={image_url || '/placeholder.jpg'}
                     alt={title}
@@ -74,7 +74,7 @@ function AnimeItem({movie_id, title, image_url, genre, year, duration, episodes,
                     }}
                 />
             </div>
-            <div className="anime-info">
+            <div className="movie-info">
                 <p><strong>Tên phim:</strong> {title}</p>
                 <p><strong>Thể loại:</strong> {genre}</p>
                 <p><strong>Năm phát hành:</strong> {year}</p>
