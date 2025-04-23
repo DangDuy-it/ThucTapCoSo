@@ -68,7 +68,7 @@ function Header() {
           <li>
             <Link to="/">TRANG CHỦ</Link>
           </li>
-          <li className="dropdown">
+          {/* <li className="dropdown">
             <Link to="/dang-anime" className="dropdown-toggle">
               DẠNG ANIME
             </Link>
@@ -83,22 +83,16 @@ function Header() {
                 <Link to="/dang-anime/phim-3">Phim 3</Link>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li className="dropdown">
-            <Link to="/the-loai" className="dropdown-toggle">
-              THỂ LOẠI
-            </Link>
-            <ul className="dropdown-menu">
-              <li>
-                <Link to="/the-loai/hanh-dong">Hành Động</Link>
-              </li>
-              <li>
-                <Link to="/the-loai/tinh-cam">Tình Cảm</Link>
-              </li>
-              <li>
-                <Link to="/the-loai/vien-tuong">Viễn Tưởng</Link>
-              </li>
-            </ul>
+            <span className="dropdown-title"> THỂ LOẠI</span>
+            <div className="dropdown-content">
+              {categoryList.map((category) => (
+                <Link key={category.category_id} to={`/the-loai/${category.category_name.toLowerCase()}`}>
+                  {category.category_name}
+                </Link>
+              ))}
+            </div>
           </li>
         </ul>
       </div>

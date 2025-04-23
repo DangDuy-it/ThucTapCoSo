@@ -1,8 +1,18 @@
-import {Link} from 'react-router-dom';
-import '../styles/Header.css';
+import { Link, useNavigate } from 'react-router-dom'; // Thêm useNavigate
+import '../styles/HeaderAdmin.css';
 
-function HeaderAdmin(){
-    return(
+function HeaderAdmin() {
+    const navigate = useNavigate(); // Sử dụng useNavigate để điều hướng
+
+    // Hàm xử lý đăng xuất
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.dispatchEvent(new Event("userChanged")); // Gửi sự kiện để cập nhật Header
+        navigate("/login"); // Chuyển hướng đến trang đăng nhập
+    };
+
+    return (
         <nav>
             <div className="logo">
                 <img src="https://cdn.animevietsub.one/data/logo/logoz.png" alt="Logo" />
@@ -15,15 +25,22 @@ function HeaderAdmin(){
             </div>
             <div className="search">
                 <ul>
-                    <li><input placeholder = "Tìm kiếm "type="text" /></li>
+                    <li><input placeholder="Tìm kiếm" type="text" /></li>
                 </ul>
             </div>
             <div className="user-infor">
                 <ul>
                     <li>Admin</li>
+ 
                 </ul>
             </div>
+            <div className="button-exit">
+                        <button onClick={handleLogout} >
+                            Đăng Xuất
+                        </button>
+                    </div> 
         </nav>
     );
-};
+}
+
 export default HeaderAdmin;

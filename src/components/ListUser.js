@@ -28,7 +28,7 @@ function ListUser() {
       <div className="list-user">
         {users.map((user) => (
           <Link
-            to={`/user/${user.user_id}`}
+            to={`/admin/user/${user.user_id}`}
             key={user.user_id}
             className='nav-link'
             >

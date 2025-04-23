@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 
-// APi: Đăng ký người dùng
+// API: Đăng ký người dùng
 const register = async (req, res) => {
     const { name, email, password } = req.body;
 
@@ -37,7 +37,6 @@ const register = async (req, res) => {
                         console.log('Lỗi khi thêm user:', err);
                         return res.status(500).json({ error: err.message });
                     }
-                    // Tạo JWT token cho người dùng mới 
                     const user = { user_id: result.insertId, user_name: name, email };
                     const token = jwt.sign(user, 'your_secret_key', { expiresIn: '1h' });
 
@@ -54,6 +53,7 @@ const register = async (req, res) => {
         res.status(500).json({ error: 'Lỗi server' });
     }
 };
+
 // API: Đăng nhập người dùng
 const login = (req, res) => {
     const { email, password } = req.body;
@@ -73,7 +73,7 @@ const login = (req, res) => {
         if (!match) {
             return res.status(401).json({ error: 'Email hoặc mật khẩu không đúng' });
         }
-        // Tạo JWT token
+
         const token = jwt.sign(
             { user_id: user.user_id, user_name: user.user_name, email: user.email },
             'your_secret_key',
@@ -83,17 +83,17 @@ const login = (req, res) => {
         res.json({
             message: 'Đăng nhập thành công!',
             token,
-            user: { user_id: user.user_id, user_name: user.user_name, email: user.email }
+            user: { user_id: user.user_id, user_name: user.user_name, email: user.email, role_id: user.role_id }
         });
     });
 };
-// API: Cập nhật thông tin người dùng( yêu cầu đăng nhập )
+
+// API: Cập nhật thông tin người dùng (yêu cầu đăng nhập)
 const updateUser = async (req, res) => {
     const { user_name, email, password } = req.body;
     const user_id = req.user.user_id;
 
     try {
-        //Kiểm tra email hoặc user_name mới có bị trùng không
         db.query(
             'SELECT * FROM users WHERE (email = ? OR user_name = ?) AND user_id != ?',
             [email, user_name, user_id],
@@ -111,13 +111,13 @@ const updateUser = async (req, res) => {
                         return res.status(400).json({ error: 'Tên người dùng đã được sử dụng' });
                     }
                 }
-                // Nếu có mật khẩu mới, mã hóa mật khẩu
+
                 let hashedPassword = null;
                 if (password) {
                     const saltRounds = 10;
                     hashedPassword = await bcrypt.hash(password, saltRounds);
                 }
-                // Cập nhật thông tin người dùng
+
                 const updateFields = [];
                 const updateValues = [];
 
@@ -146,7 +146,6 @@ const updateUser = async (req, res) => {
                         console.log('Lỗi khi cập nhật user:', err);
                         return res.status(500).json({ error: err.message });
                     }
-                    // Cập nhật thông tin user trong token
                     const updatedUser = { user_id, user_name: user_name || req.user.user_name, email: email || req.user.email };
                     const newToken = jwt.sign(updatedUser, 'your_secret_key', { expiresIn: '1h' });
                     res.json({

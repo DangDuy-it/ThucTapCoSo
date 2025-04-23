@@ -90,7 +90,6 @@ const getMovieById = (req, res) => {
         movie_id,
         title,
         TRIM(image_url) AS image_url,
-        TRIM(video_url) AS video_url,
         status,
         TRIM(genre) AS genre,
         release_year AS release_year,

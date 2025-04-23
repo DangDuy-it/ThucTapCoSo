@@ -40,7 +40,7 @@ function LoginForm() {
     
             setTimeout(() => {
                 if (res.data.user.role_id === 1) {
-                    navigate("/admin");
+                    navigate("/manageuser"); // Chuyển hướng đến trang quản lý người dùng
                 } else {
                     navigate("/");
                 }
