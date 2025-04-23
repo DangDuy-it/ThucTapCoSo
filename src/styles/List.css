@@ -7,15 +7,19 @@
     max-width: 100%;
     margin: 0 auto;
 }
-.list-tag{
+.list-tag li{
     list-style: none;
-    padding: 10px;
-    margin: 10px 850px 10px 10px;
+    padding: 10px 20px;
+    margin: 10px;
     border-radius: 10px;
     color: white;
     font-weight: bold;
     background-color: brown;
+    text-align: left; /* Căn chữ bên trong sang trái */
+    width: fit-content; /* Thanh tag chỉ rộng vừa đủ nội dung */
+    display: block;
 }
+
 .anime-image{
     height: 250px;
 

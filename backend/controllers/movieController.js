@@ -9,7 +9,9 @@ const getMovies = (req, res) => {
             image_url,
             status
         FROM movies
-        WHERE status = 'approved'`;
+        WHERE status = 'Approved'
+        ORDER BY movie_id DESC    
+    `;
 
     db.query(query, (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -28,7 +30,7 @@ const getMovieDetails = (req, res) => {
             image_url,
             status
         FROM movies
-        WHERE movie_id = ? AND status = 'approved'
+        WHERE movie_id = ? AND status = 'Approved'
     `;
 
     const episodeQuery = `
@@ -197,6 +199,30 @@ const deleteMovie = (req, res) => {
     });
 };
 
+// API: Lấy danh sách phim hiện thị Slider
+const getSliderMovie = (req, res) =>{
+    const query=`
+        SELECT
+            movie_id,
+            title,
+            background_url,
+            genre,
+            description
+        FROM movies
+        WHERE status = 'Approved' -- Chỉ lấy phim đã duyệt
+        ORDER BY movie_id DESC -- Sắp xếp theo ID phim giảm dần
+        LIMIT 3 -- Giới hạn 3 phim cho slider
+    `;
+    db.query(query,(err,result)=>{
+        if(err){
+            console.error("Lỗi lấy phim cho slide:", err);
+            return res.status(500).json({error: "Lỗi máy chủ"});
+
+        }
+        res.status(200).json(result);
+    })
+}
+
 
 module.exports = {
     getMovies,
@@ -205,5 +231,6 @@ module.exports = {
     getMovieById,
     updateMovie,
     addEpisode,
-    deleteMovie
+    deleteMovie,
+    getSliderMovie
 };
