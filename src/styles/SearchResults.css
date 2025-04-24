@@ -96,16 +96,15 @@
 
 .movie-card img {
     width: 100%;
-    height: auto;
+    height: 250px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .movie-title {
     margin-top: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
+    font-weight: bold;
+    color: white;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
