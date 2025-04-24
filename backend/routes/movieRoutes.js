@@ -10,7 +10,9 @@ router.get('/api/movies/:movie_id/edit', movieController.getMovieById); // Lấy
 router.put('/api/movies/:movie_id',movieController.updateMovie); // Cập nhật thông tin phim
 router.post('/api/movies/:movieId/episodes',movieController.addEpisode); // Thêm tập phim cho bộ phim 
 router.delete('/api/movies/:movie_id', movieController.deleteMovie); // Xóa một bộ phim 
-router.get('/api/slider-movies', movieController.getSliderMovie); // Lấy danh sách phim hiện thị Slider 
+router.get('/api/slider-movies', movieController.getSliderMovie); // Lấy danh sách phim hiện thị Slider
+router.get('/api/movies/search', movieController.searchMovies); // Tìm kiếm phim theo tiêu đề hoặc thể loại
+
 
 
 module.exports = router;

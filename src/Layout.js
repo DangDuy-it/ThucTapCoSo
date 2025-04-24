@@ -46,6 +46,7 @@ export default function Layout() {
           <Route path="/admin/user/:userId" element={<UserInfor />} />
           <Route path="/admin/edit/:movieId" element={<EditMovie />} />
           <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </>
     );

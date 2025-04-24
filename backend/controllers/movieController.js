@@ -252,6 +252,7 @@ const searchMovies = (req, res) => {
 };
 
 
+
 module.exports = {
     getMovies,
     getMovieDetails,
@@ -263,3 +264,4 @@ module.exports = {
     getSliderMovie,
     searchMovies
 };
+

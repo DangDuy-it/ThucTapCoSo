@@ -9,6 +9,7 @@ function Header() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [searchKeyword, setSearchKeyword] = useState("");
+
   // Hàm để lấy thông tin user từ localStorage
   const updateUserFromStorage = () => {
     const storedUser = localStorage.getItem("user");

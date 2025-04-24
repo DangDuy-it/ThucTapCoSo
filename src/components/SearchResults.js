@@ -15,6 +15,7 @@ function SearchResults() {
   useEffect(() => {
     if (keyword) {
       axios
+
         .get(`http://localhost:3001/api/movies/search?q=${encodeURIComponent(keyword.trim())}`)
         .then((res) => setResults(res.data))
         .catch((err) => console.error("Lỗi tìm kiếm:", err));
@@ -22,6 +23,7 @@ function SearchResults() {
   }, [keyword]);
 
   return (
+
     // Thay class "search-results" bằng "search-results-container"
     <div className="search-results-container">
       {/* Thêm div với class "search-title" bao quanh tiêu đề */}
@@ -47,5 +49,6 @@ function SearchResults() {
     </div>
   );
 }
+
 
 export default SearchResults;
