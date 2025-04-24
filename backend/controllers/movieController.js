@@ -222,6 +222,37 @@ const getSliderMovie = (req, res) =>{
     })
 }
 
+// API: Tìm kiếm phim theo tiêu đề hoặc thể loại
+const searchMovies = (req, res) => {
+    const keyword = req.query.q;
+    if (!keyword) {
+        return res.status(400).json({ error: 'Vui lòng nhập từ khóa tìm kiếm.' });
+    }
+
+    const likeKeyword = `%${keyword}%`;
+    const sql = `
+        SELECT 
+            movie_id AS id,
+            title,
+            image_url,
+            genre,
+            description,
+            status
+        FROM movies
+        WHERE (title LIKE ? OR genre LIKE ?) AND status = 'Approved'
+        ORDER BY movie_id DESC
+    `;
+
+    db.query(sql, [likeKeyword, likeKeyword], (err, results) => {
+        if (err) {
+            console.error('Lỗi tìm kiếm phim:', err);
+            return res.status(500).json({ error: 'Lỗi máy chủ khi tìm kiếm phim' });
+        }
+        res.status(200).json(results);
+    });
+};
+
+
 
 module.exports = {
     getMovies,
@@ -231,5 +262,6 @@ module.exports = {
     updateMovie,
     addEpisode,
     deleteMovie,
-    getSliderMovie
+    getSliderMovie,
+    searchMovies
 };

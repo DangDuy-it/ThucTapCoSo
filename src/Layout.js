@@ -14,6 +14,8 @@ import ManageMovie from "./pages/Admin/ManageMovie";
 import UserInfor from "./components/UserDetail";
 import EditMovie from "./components/EditMovie";
 import AddEpisode from "./components/AddEpisode";
+import SearchResults from "./components/SearchResults";
+
   
 export default function Layout() {
     const location = useLocation();
@@ -44,6 +46,7 @@ export default function Layout() {
           <Route path="/admin/user/:userId" element={<UserInfor />} />
           <Route path="/admin/edit/:movieId" element={<EditMovie />} />
           <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </>
     );
