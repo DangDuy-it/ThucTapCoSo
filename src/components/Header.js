@@ -8,7 +8,7 @@ import axios from "axios";
 function Header() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-
+  const [searchKeyword, setSearchKeyword] = useState("");
   // Hàm để lấy thông tin user từ localStorage
   const updateUserFromStorage = () => {
     const storedUser = localStorage.getItem("user");
@@ -98,8 +98,18 @@ function Header() {
       </div>
       <div className="Search">
         <ul>
-          <li>
-            <input placeholder="Tìm kiếm" type="text" />
+        <li>
+            <input
+              placeholder="Tìm kiếm"
+              type="text"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(`/movies/search?keyword=${encodeURIComponent(searchKeyword)}`);
+                }
+              }}
+            />
           </li>
           <li>
             {user ? (

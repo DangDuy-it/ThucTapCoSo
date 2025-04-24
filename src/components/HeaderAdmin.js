@@ -31,14 +31,13 @@ function HeaderAdmin() {
             <div className="user-infor">
                 <ul>
                     <li>Admin</li>
- 
-                </ul>
-            </div>
-            <div className="button-exit">
-                        <button onClick={handleLogout} >
+                    <button onClick={handleLogout} className="button-logout" >
                             Đăng Xuất
                         </button>
-                    </div> 
+                </ul>
+            </div>
+
+                    
         </nav>
     );
 }

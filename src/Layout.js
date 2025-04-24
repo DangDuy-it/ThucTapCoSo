@@ -14,7 +14,8 @@ import ManageMovie from "./pages/Admin/ManageMovie";
 import UserInfor from "./components/UserDetail";
 import EditMovie from "./components/EditMovie";
 import AddEpisode from "./components/AddEpisode";
-  
+import SearchResults from "./components/SearchResults";
+
 export default function Layout() {
     const location = useLocation();
     const isAdminRoute =
@@ -31,6 +32,7 @@ export default function Layout() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/movie/:id" element={<MoviePlayer />} />
+          <Route path="/movies/search" element={<SearchResults />} />
           <Route
             path="/profile"
             element={

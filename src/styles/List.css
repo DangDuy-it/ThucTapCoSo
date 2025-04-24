@@ -28,6 +28,10 @@
     width: 100%; 
     height: 100%;
     object-fit: cover;
+    border-radius: 5px;
+}
+.anime-image :hover {
+    transform: scale(1.05); /* Phóng to card khi di chuột qua */
 }
 .anime-info {
     display: flex;

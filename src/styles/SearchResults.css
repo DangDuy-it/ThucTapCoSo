@@ -1,0 +1,72 @@
+.search-results-container {
+    padding: 20px;
+}
+
+.search-title {
+    margin-bottom: 20px;
+}
+
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các movie-card */
+    list-style: none; /* Xóa dấu đầu dòng mặc định của ul */
+    padding: 0; /* Xóa padding mặc định của ul */
+    margin: 0; /* Xóa margin mặc định của ul */
+    justify-content: center; /* Căn giữa các movie-card nếu không đủ lấp đầy một hàng */
+}
+
+.movie-card {
+    width: 160px; /* Chiều rộng cố định cho mỗi card */
+    text-align: center;
+    transition: transform 0.2s ease; /* Hiệu ứng zoom khi hover */
+    text-decoration: none; /* Xóa gạch chân mặc định của thẻ a nếu có */
+    color: inherit; /* Kế thừa màu chữ từ cha */
+}
+
+.movie-card a {
+     text-decoration: none; /* Đảm bảo link không bị gạch chân */
+     color: inherit; /* Đảm bảo màu chữ không bị thay đổi */
+}
+
+
+.movie-card:hover {
+    transform: scale(1.05); /* Phóng to card khi di chuột qua */
+}
+
+.movie-card img {
+    width: 100%; /* Chiều rộng ảnh bằng 100% container */
+    height: 250px; /* Chiều cao tự động điều chỉnh */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    object-fit: cover; /* Cái này đã có sẵn, rất tốt để tránh méo ảnh */
+}
+
+.movie-title {
+    margin-top: 8px;
+    font-weight: bold;
+    color: white; /* Màu chữ tiêu đề */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Hiển thị dấu ... nếu tiêu đề quá dài */
+    white-space: nowrap; /* Ngăn tiêu đề xuống dòng */
+}
+
+/* Responsive Adjustments (Tùy chọn) */
+@media (max-width: 768px) {
+    .movie-card {
+        width: 120px; /* Giảm kích thước card trên màn hình nhỏ hơn */
+    }
+    .movie-list {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-card {
+        width: 100px; /* Giảm thêm kích thước trên màn hình rất nhỏ */
+    }
+    .movie-list {
+        gap: 10px;
+        justify-content: space-around; /* Căn đều các card */
+    }
+}
