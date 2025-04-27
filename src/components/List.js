@@ -21,16 +21,17 @@ function List() {
             </div>
             <div className="list">
                 {animeList.map((item) => (
+                    <li>
                     <Link 
                         to={`/movie/${item.id}`} 
                         key={item.id}
-                        style={{ textDecoration: 'none' }}
                     >
                         <AnimeItem 
                             title={item.title} 
                             image_url={item.image_url} 
                         />
-                    </Link>
+                    </Link>   
+                    </li>
                 ))}
             </div>
             <div className="more">

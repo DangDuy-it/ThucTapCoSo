@@ -89,7 +89,7 @@ function Header() {
             <span className="dropdown-title"> THỂ LOẠI</span>
             <div className="dropdown-content">
               {categoryList.map((category) => (
-                <Link key={category.category_id} to={`/the-loai/${category.category_name.toLowerCase()}`}>
+                <Link key={category.category_id} to={`/the-loai/${encodeURIComponent(category.category_name)}`}>
                   {category.category_name}
                 </Link>
               ))}

@@ -20,6 +20,20 @@
     display: block;
 }
 
+.anime-item{
+    background-color: #333; /* Màu nền cho mỗi item phim */
+    border-radius: 8px; /* Bo tròn góc */
+    overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài */
+    display: flex; /* Sử dụng Flexbox cho nội dung bên trong li */
+    flex-direction: column; /* Sắp xếp nội dung theo cột */
+    text-align: center; /* Căn giữa chữ (tên phim) */
+    transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển động khi hover */
+    cursor: pointer; /* Đổi con trỏ chuột thành pointer */
+}
+.anime-image :hover{
+    transform: scale(1.05);
+}
+
 .anime-image{
     height: 250px;
 
@@ -30,9 +44,7 @@
     object-fit: cover;
     border-radius: 5px;
 }
-.anime-image :hover {
-    transform: scale(1.05); /* Phóng to card khi di chuột qua */
-}
+
 .anime-info {
     display: flex;
     justify-content: center;

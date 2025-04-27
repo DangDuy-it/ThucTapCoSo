@@ -119,3 +119,6 @@
     margin: auto;
     align-items: center;
 }
+.button-add button:hover{
+    background-color: #888
+}

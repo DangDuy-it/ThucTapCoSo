@@ -12,7 +12,7 @@ router.post('/api/movies/:movieId/episodes',movieController.addEpisode); // Thê
 router.delete('/api/movies/:movie_id', movieController.deleteMovie); // Xóa một bộ phim 
 router.get('/api/slider-movies', movieController.getSliderMovie); // Lấy danh sách phim hiện thị Slider
 router.get('/api/movies/search', movieController.searchMovies); // Tìm kiếm phim theo tiêu đề hoặc thể loại
-
+router.post('/api/movies/add', movieController.addMovie);
 
 
 module.exports = router;

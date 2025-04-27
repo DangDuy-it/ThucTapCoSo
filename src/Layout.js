@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import HeaderAdmin from "./components/HeaderAdmin";
 import DangAnime from "./pages/User/DangAnime";
 import Home from "./pages/User/Home";
-import TheLoai from "./pages/User/TheLoai";
 import Login from "./pages/User/Login";
 import Register from "./pages/User/Register";
 import MoviePlayer from "./components/MoviePlayer";
@@ -14,7 +13,9 @@ import ManageMovie from "./pages/Admin/ManageMovie";
 import UserInfor from "./components/UserDetail";
 import EditMovie from "./components/EditMovie";
 import AddEpisode from "./components/AddEpisode";
-import SearchResults from "./components/SearchResults";
+import SearchResults from "./pages/User/PageSearch";
+import CategoryMovies from "./pages/User/TheLoai";
+import AddMovie from "./components/AddMovie";
 
 export default function Layout() {
     const location = useLocation();
@@ -28,7 +29,7 @@ export default function Layout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dang-anime" element={<DangAnime />} />
-          <Route path="/the-loai/:categoryName" element={<TheLoai />} />
+          <Route path="/the-loai/:name" element={<CategoryMovies />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/movie/:id" element={<MoviePlayer />} />
@@ -47,6 +48,7 @@ export default function Layout() {
           <Route path="/admin/edit/:movieId" element={<EditMovie />} />
           <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/admin/add" element={<AddMovie/>} />
         </Routes>
       </>
     );

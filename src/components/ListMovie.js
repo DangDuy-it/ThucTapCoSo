@@ -20,7 +20,9 @@ function AdminList() {
                 <li>Quản lý phim</li>
             </div>
             <div className="button-add">
-                <button>THÊM PHIM</button>
+                <Link to={`/admin/add`}>
+                    <button>THÊM PHIM</button>
+                </Link>
             </div>
             <div className="list-movie">
                 {animeList.map((item) => (
