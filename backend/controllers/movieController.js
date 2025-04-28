@@ -114,10 +114,10 @@ const getMovieById = (req, res) => {
         res.status(200).json(movieData);
     });
 };
-// API: Cập nhật thông tin phim
-const updateMovie= (req, res) => {
-    const movieId= req.params.movie_id;
-    const{
+// API: Cập nhật thông tin phim (cập nhật cả thể loại)
+const updateMovie = (req, res) => {
+    const movieId = req.params.movie_id;
+    const {
         title,
         genre,
         release_year,
@@ -125,21 +125,22 @@ const updateMovie= (req, res) => {
         status,
         description,
         image_url
-    }= req.body;
+    } = req.body;
 
-    const query=`
+    const updateMovieSql = `
         UPDATE movies
-            SET    
-                title=?, 
-                genre=?,         
-                release_year=?,
-                duration=?,
-                status=?,
-                description=?,
-                image_url=? 
+        SET    
+            title=?, 
+            genre=?,         
+            release_year=?,
+            duration=?,
+            status=?,
+            description=?,
+            image_url=? 
         WHERE movie_id=?
     `;
-    db.query(query, [title, genre,release_year, duration,status,description,image_url,movieId ],(err,result)=>{
+
+    db.query(updateMovieSql, [title, genre, release_year, duration, status, description, image_url, movieId], (err, result) => {
         if (err) {
             console.error('Lỗi cập nhật phim:', err);
             return res.status(500).json({ message: 'Lỗi máy chủ khi cập nhật phim', error: err.message });
@@ -149,9 +150,53 @@ const updateMovie= (req, res) => {
             return res.status(404).json({ message: 'Không tìm thấy phim để cập nhật' });
         }
 
-        res.status(200).json({ message: 'Cập nhật phim thành công' });
+        // Bước 2: Xóa các thể loại cũ
+        const deleteOldCategoriesSql = `DELETE FROM movie_categories WHERE movie_id = ?`;
+        db.query(deleteOldCategoriesSql, [movieId], (errDelete) => {
+            if (errDelete) {
+                console.error('Lỗi khi xóa thể loại cũ:', errDelete);
+                return res.status(500).json({ message: 'Lỗi khi xóa liên kết thể loại cũ', error: errDelete.message });
+            }
+
+            // Bước 3: Xử lý lại genre mới
+            const genreNames = genre.split(',').map(name => name.trim()).filter(name => name !== '');
+            if (genreNames.length === 0) {
+                return res.status(200).json({ message: 'Cập nhật phim thành công (không có thể loại để cập nhật).' });
+            }
+
+            // Bước 4: Tìm category_id tương ứng
+            const findCategoriesSql = `
+                SELECT category_id FROM categories WHERE category_name IN (?)
+            `;
+            db.query(findCategoriesSql, [genreNames], (errFind, categories) => {
+                if (errFind) {
+                    console.error('Lỗi khi tìm category_id:', errFind);
+                    return res.status(500).json({ message: 'Lỗi khi tìm category_id', error: errFind.message });
+                }
+
+                if (categories.length === 0) {
+                    return res.status(200).json({ message: 'Cập nhật phim thành công nhưng không tìm thấy thể loại tương ứng.' });
+                }
+
+                // Bước 5: Chèn mới vào bảng movie_categories
+                const movieCategoriesValues = categories.map(row => [movieId, row.category_id]);
+                const insertMovieCategoriesSql = `
+                    INSERT INTO movie_categories (movie_id, category_id) VALUES ?
+                `;
+                db.query(insertMovieCategoriesSql, [movieCategoriesValues], (errInsert) => {
+                    if (errInsert) {
+                        console.error('Lỗi khi thêm thể loại mới:', errInsert);
+                        return res.status(500).json({ message: 'Cập nhật phim thành công nhưng lỗi khi thêm thể loại mới', error: errInsert.message });
+                    }
+
+                    // Thành công hoàn toàn
+                    res.status(200).json({ message: `Cập nhật phim và ${categories.length} thể loại thành công.` });
+                });
+            });
+        });
     });
 };
+
 // API: Thêm tập phim cho bộ phim
 const addEpisode = (req, res) => {
     const { movieId } = req.params;

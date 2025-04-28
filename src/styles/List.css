@@ -64,7 +64,6 @@
 .more ul{
     list-style: none;
     display: flex;
-    gap: 20px;
 
 }
 .more a{
@@ -72,4 +71,18 @@
     background-color: #444;
     padding: 20px;
     border-radius: 10px;
+}
+.page-button {
+    background-color: #444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none; /* Thường để border:none cho đẹp */
+    margin: 5px;   /* Thêm margin nhỏ cho nút cách nhau */
+}
+
+.page-button.active {
+    background-color: brown;
 }

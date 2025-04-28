@@ -42,7 +42,7 @@ function EditMovie() {
                 setLoading(false);
             });
     }, [movieId]);
-
+    // Xử lý thay đổi 
     const handleChange = (e) => {
         setMovie({ ...movie, [e.target.name]: e.target.value });
     };
