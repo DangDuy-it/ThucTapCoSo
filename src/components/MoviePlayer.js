@@ -128,7 +128,6 @@ const MoviePlayer = () => {
                     height="400"
                     src={currentEpisode?.video_url}
                     title={movie.title}
-                    frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                 ></iframe>
@@ -158,7 +157,7 @@ const MoviePlayer = () => {
                     )}
                 </div>
             </div>
-            <div className="movie-info">
+            <div className="movie-player-info">
                 <div className="poster-container">
                     <img src={movie.image_url} alt={movie.title} className="movie-poster" />
                     <button
