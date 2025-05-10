@@ -5,11 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import logo_web from "../picture/logo-1.webp";
 import axios from "axios";
 
+
 function Header() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [searchKeyword, setSearchKeyword] = useState("");
-
+  const [showDropdown, setShowDropdown]= useState(false);
   // Hàm để lấy thông tin user từ localStorage
   const updateUserFromStorage = () => {
     const storedUser = localStorage.getItem("user");
@@ -31,6 +32,7 @@ function Header() {
     const handleUserChange = () => {
       updateUserFromStorage();
     };
+  
 
     window.addEventListener("userChanged", handleUserChange);
     return () => {
@@ -115,9 +117,21 @@ function Header() {
           <li>
             {user ? (
               <div className="user-info">
-                <Link to="/profile" className="user-name">
+                {/* <Link to="/profile" className="user-name">
                   Xin chào, {user.user_name || user.email || "Người dùng"}
-                </Link>
+                </Link> */}
+                <div className="user-dropdown">
+                  <div className="user-name" onClick={() => setShowDropdown(!showDropdown)}>
+                    Xin chào, {user.user_name}
+                  </div>
+                  {showDropdown && (
+                    <ul className="dropdown-menu">
+                      <li onClick={() => navigate("/profile")}>Quản lý thông tin</li>
+                      <li onClick={() => navigate("")}>Danh sách yêu thích</li>
+                      <li onClick={() => navigate("")}>Lịch sử xem phim</li>
+                    </ul>
+                  )}
+                </div>
                 <button onClick={handleLogout} className="logout-btn">
                   Đăng Xuất
                 </button>
