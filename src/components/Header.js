@@ -127,7 +127,7 @@ function Header() {
                   {showDropdown && (
                     <ul className="dropdown-menu">
                       <li onClick={() => navigate("/profile")}>Quản lý thông tin</li>
-                      <li onClick={() => navigate("")}>Danh sách yêu thích</li>
+                      <li onClick={() => navigate("/movies/favorites")}>Danh sách yêu thích</li>
                       <li onClick={() => navigate("")}>Lịch sử xem phim</li>
                     </ul>
                   )}

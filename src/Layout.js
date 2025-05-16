@@ -16,6 +16,7 @@ import AddEpisode from "./components/AddEpisode";
 import SearchResults from "./pages/User/PageSearch";
 import CategoryMovies from "./pages/User/TheLoai";
 import AddMovie from "./components/AddMovie";
+import Favorites from "./pages/User/FavoritesList";
 
 export default function Layout() {
     const location = useLocation();
@@ -34,6 +35,7 @@ export default function Layout() {
           <Route path="/register" element={<Register />} />
           <Route path="/movie/:id" element={<MoviePlayer />} />
           <Route path="/movies/search" element={<SearchResults />} />
+          <Route path="/movies/favorites" element={<Favorites/>}/>
           <Route
             path="/profile"
             element={

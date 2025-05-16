@@ -71,10 +71,30 @@ const checkFavoriteStatus=(req, res) =>{
         res.status(200).json({isFavorite: isFavorite});
     })
 }
+// API lấy danh sách phim yêu thích
+const getFavorites=(req, res) =>{
+    const userId= req.user.user_id;
+    // Câu lệnh SQL
+    const sql=`
+        SELECT m.movie_id, m.title, m.description, m.image_url
+        FROM favorites f
+        JOIN movies m ON f.movie_id = m.movie_id
+        WHERE f.user_id=?
+    `
+    db.query(sql, [userId], (err, result) =>{
+        // Phản hồi lỗi
+        if (err){
+            console.error("Lỗi lấy danh sách phim yêu thích",err);
+            return res.status(500).json({message:"Lỗi máy chủ"});
+        }
+        res.status(200).json(result);
+    })
+}
 
 
 module.exports = {
     addFavorite,
     removeFavorite,
     checkFavoriteStatus,
+    getFavorites,
 };
