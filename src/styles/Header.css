@@ -54,7 +54,7 @@ nav {
 
   /* Grid layout for items */
   grid-template-columns: repeat(3, auto);
-  gap: 10px;
+  gap: 15px;
 }
 .dropdown-title {
   font-weight: bold;

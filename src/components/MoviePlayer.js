@@ -13,7 +13,6 @@ const MoviePlayer = () => {
     const [reviews, setReviews] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [rating, setRating] = useState(10);
-    const [isFavorite, setIsFavorite] = useState(false);
     const navigate = useNavigate();
 
         // Hàm xử lý lỗi token tập trung
@@ -62,30 +61,7 @@ const MoviePlayer = () => {
                 const reviewsRes = await axios.get(`http://localhost:3001/api/reviews/${id}`);
                 setReviews(reviewsRes.data); // Cập nhật state reviews
 
-                // 3. Fetch Trạng thái Yêu thích từ backend (Chỉ khi có token)
-                const token = localStorage.getItem("token"); // Lấy token
-                if (token) { // Nếu có token (người dùng đã đăng nhập)
-                     try {
-                        // Gọi API backend để kiểm tra trạng thái yêu thích của phim cho người dùng này
-                        const statusRes = await axios.get(`http://localhost:3001/api/favorites/${id}/status`, {
-                            headers: { Authorization: `Bearer ${token}` }, // Gửi token trong header để xác thực
-                        });
-                        // Cập nhật state isFavorite dựa trên phản hồi từ backend
-                        setIsFavorite(statusRes.data.isFavorite);
-                     } catch (statusErr) { // Đã đổi tên biến lỗi thành statusErr cho rõ ràng
-                          console.error("Lỗi kiểm tra trạng thái yêu thích:", statusErr.response?.data || statusErr);
-                          // Sử dụng hàm xử lý lỗi token. Nếu không phải lỗi token, hiển thị lỗi khác
-                          if (!handleTokenError(statusErr)) {
-                              // Nếu có lỗi khác khi fetch status, giả định là không yêu thích và thông báo lỗi
-                             setIsFavorite(false);
-                             toast.error("Không thể kiểm tra trạng thái yêu thích.");
-                          }
-                      }
-                 } else {
-                      // Nếu không có token (người dùng chưa đăng nhập), set isFavorite là false
-                      setIsFavorite(false);
-                 }
-
+            
             } catch (err) {
                 // Xử lý lỗi chung cho bất kỳ fetch nào trong khối try lớn
                 console.error("Lỗi fetch dữ liệu phim:", err);
@@ -127,43 +103,6 @@ const MoviePlayer = () => {
                 "Lỗi khi gửi đánh giá: " + (err.response?.data?.error || "Thử lại sau")
             );
         }
-    };
-    // Hàm xử lý thêm/xóa phim khỏi danh sách yêu thích
-    const toggleFavorite = async() => {
-        const token = localStorage.getItem("token");
-        // Kiểm tra người dùng đã đăng nhập chưa
-        if (!token) {
-            toast.error("Vui lòng đăng nhập để thêm vào danh sách yêu thích!");
-            navigate("/login");
-            return;
-        }
-        try {
-            if(isFavorite) {
-                // Nếu phim đang yêu thích, gửi yêu cầu DELETE để xóa
-                await axios.delete(`http://localhost:3001/api/favorites/${id}`, {
-                    headers: {Authorization: `Bearer ${token}`},
-                });
-                setIsFavorite(false);
-                toast.success("Đã xóa khỏi danh sách yêu thích");
-            } else{
-                // Nếu phim chưa yêu thích, gửi yêu cầu POST để thêm
-                await axios.post(`http://localhost:3001/api/favorites`, {movie_id:id}, {
-                    headers: {Authorization: `Bearer ${token}`},
-                });
-                setIsFavorite(true);
-                toast.success("Đã thêm vào danh sách yêu thích");
-            }
-        }
-        catch (err) {
-            console.error("Lỗi khi cập nhật yêu thích:", err.response?.data || err);
-            if (!handleTokenError(err)) {
-                 // Nếu lỗi không phải do token hết hạn/sai, thì hiển thị lỗi khác
-                 toast.error(
-                     "Có lỗi khi cập nhật yêu thích: " + (err.response?.data?.message || "Thử lại sau") // Hiển thị thông báo lỗi từ server nếu có
-                 );
-             }
-        }
-
     };
     // Hàm ghi lịch sử xem phim
     const recordHistory = (title, movieId) => {
@@ -224,15 +163,6 @@ const MoviePlayer = () => {
             <div className="movie-player-info">
                 <div className="poster-container">
                     <img src={movie.image_url} alt={movie.title} className="movie-poster" />
-                    
-                    <button
-                        onClick={toggleFavorite}
-                        className={`favorite-btn ${isFavorite ? "remove-favorite" : "add-favorite"}`} // Thêm class động
-                    >
-                        {isFavorite
-                            ? "Xóa khỏi danh sách yêu thích"
-                            : "Thêm vào danh sách yêu thích"}
-                    </button>
                 </div>
                 <div className="movie-details">
                     <h3>{movie.title}</h3>

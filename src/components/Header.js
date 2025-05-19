@@ -117,9 +117,6 @@ function Header() {
           <li>
             {user ? (
               <div className="user-info">
-                {/* <Link to="/profile" className="user-name">
-                  Xin chào, {user.user_name || user.email || "Người dùng"}
-                </Link> */}
                 <div className="user-dropdown">
                   <div className="user-name" onClick={() => setShowDropdown(!showDropdown)}>
                     Xin chào, {user.user_name}
