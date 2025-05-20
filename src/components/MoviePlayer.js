@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import "../styles/MoviePlayer.css";
 import axios from "axios";
@@ -14,70 +14,120 @@ const MoviePlayer = () => {
     const [newComment, setNewComment] = useState("");
     const [rating, setRating] = useState(10);
     const navigate = useNavigate();
+    const isHistoryRecorded = useRef(false);
 
-        // Hàm xử lý lỗi token tập trung
     const handleTokenError = (err) => {
-        // Cập nhật điều kiện kiểm tra thông báo lỗi để khớp với auth.js
         if (err.response && err.response.status === 403 && err.response.data?.error === 'Token không hợp lệ hoặc đã hết hạn') {
             toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
-            localStorage.removeItem("token"); // Xóa token cũ/hết hạn
-            navigate("/login"); // Điều hướng đến trang đăng nhập
-            return true; // Báo hiệu là đã xử lý lỗi token
+            localStorage.removeItem("token");
+            navigate("/login");
+            return true;
         }
-        return false; // Báo hiệu chưa xử lý lỗi token cụ thể này
+        return false;
     };
-    // Effect hook để fetch tất cả dữ liệu cần thiết khi component mount hoặc id thay đổi
-   useEffect(() => {
-        // Gộp tất cả các thao tác fetch vào một hàm async duy nhất
+
+    const recordHistoryToDB = async (movieId) => {
+        if (isHistoryRecorded.current) {
+            console.log("Lịch sử đã được ghi trước đó, bỏ qua.");
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+        console.log("Gọi recordHistoryToDB với movieId:", movieId, "Token:", token);
+
+        if (!token) {
+            console.log("Không có token, bỏ qua ghi lịch sử.");
+            toast.error("Vui lòng đăng nhập để ghi lịch sử xem phim!");
+            return;
+        }
+
+        if (!movieId) {
+            console.log("movieId không hợp lệ:", movieId);
+            toast.error("Không thể ghi lịch sử: movieId không hợp lệ");
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                "http://localhost:3001/api/watch-history",
+                { movie_id: movieId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            console.log("Phản hồi từ server:", response.data);
+            toast.success("Đã ghi lịch sử xem phim thành công!");
+            isHistoryRecorded.current = true;
+        } catch (err) {
+            console.error("Lỗi chi tiết khi ghi lịch sử:", err.response?.data || err.message);
+            if (!handleTokenError(err)) {
+                toast.error("Không thể ghi lịch sử xem phim: " + (err.response?.data?.error || err.message));
+            }
+        }
+    };
+
+    useEffect(() => {
+        console.log("useEffect chạy với id:", id);
+        let isMounted = true;
+
         const fetchMovieData = async () => {
             try {
-                // 1. Fetch Chi tiết Phim
-                // Gọi API backend để lấy chi tiết phim
                 const movieRes = await fetch(`http://localhost:3001/api/movies/${id}`);
                 const movieData = await movieRes.json();
+                console.log("Dữ liệu phim chi tiết:", movieData);
 
-                // Kiểm tra nếu có tập phim và là mảng
+                if (!isMounted) return;
+
                 if (movieData.episodes && Array.isArray(movieData.episodes)) {
-                    setMovie(movieData); // Cập nhật state movie
-                    // Nếu có tập phim, set tập đầu tiên làm tập hiện tại
+                    // Kiểm tra trùng lặp episode_id
+                    const episodeIds = movieData.episodes.map(ep => ep.episode_id);
+                    const hasDuplicateEpisodes = new Set(episodeIds).size !== episodeIds.length;
+                    if (hasDuplicateEpisodes) {
+                        console.warn("Phát hiện episode_id trùng lặp:", episodeIds);
+                    }
+
+                    setMovie(movieData);
                     if (movieData.episodes.length > 0) {
                         setCurrentEpisode(movieData.episodes[0]);
-                         //Ghi lịch sử xem phim (chỉ khi có tiêu đề)
-                         if (movieData.title) {
-                             recordHistory(movieData.title, id);
-                         }
+                    } else {
+                        console.log("Không có tập phim nào trong dữ liệu.");
                     }
                 } else {
-                    // Nếu không có tập phim, là mảng rỗng
                     setMovie({ ...movieData, episodes: [] });
-                     // Ghi lịch sử ngay cả khi không có tập, nếu thông tin phim tồn tại
-                     if (movieData && movieData.title) {
-                         recordHistory(movieData.title, id);
-                     }
+                    console.log("Dữ liệu episodes không hợp lệ hoặc trống.");
                 }
 
-                // 2. Fetch Đánh giá phim
-                // Gọi API backend để lấy danh sách đánh giá
-                const reviewsRes = await axios.get(`http://localhost:3001/api/reviews/${id}`);
-                setReviews(reviewsRes.data); // Cập nhật state reviews
+                console.log("Tự động ghi lịch sử khi vào trang, movie_id:", id);
+                await recordHistoryToDB(id);
 
-            
+                const reviewsRes = await axios.get(`http://localhost:3001/api/reviews/${id}`);
+                if (isMounted) {
+                    // Kiểm tra trùng lặp review_id
+                    const reviewIds = reviewsRes.data.map(review => review.review_id);
+                    const hasDuplicateReviews = new Set(reviewIds).size !== reviewIds.length;
+                    if (hasDuplicateReviews) {
+                        console.warn("Phát hiện review_id trùng lặp:", reviewIds);
+                    }
+                    setReviews(reviewsRes.data);
+                }
             } catch (err) {
-                // Xử lý lỗi chung cho bất kỳ fetch nào trong khối try lớn
                 console.error("Lỗi fetch dữ liệu phim:", err);
-                 toast.error("Không thể tải dữ liệu phim."); // Hiển thị thông báo lỗi cho người dùng
+                if (isMounted) {
+                    toast.error("Không thể tải dữ liệu phim.");
+                }
             } finally {
-                // Dù thành công hay thất bại, kết thúc trạng thái loading
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
-        // Gọi hàm fetch tất cả dữ liệu khi effect chạy
         fetchMovieData();
 
-        // Dependencies của useEffect: Effect sẽ chạy lại khi id thay đổi
+        return () => {
+            isMounted = false;
+            isHistoryRecorded.current = false;
+        };
     }, [id]);
-    // Hàm xử lý gửi đánh giá mới 
+
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
@@ -104,7 +154,7 @@ const MoviePlayer = () => {
             );
         }
     };
-    // Hàm ghi lịch sử xem phim
+
     const recordHistory = (title, movieId) => {
         const history = JSON.parse(localStorage.getItem("watchHistory") || "[]");
         const newEntry = { id: movieId, title, timestamp: new Date().toISOString() };
@@ -113,6 +163,12 @@ const MoviePlayer = () => {
             ...history.filter((item) => item.id !== movieId),
         ].slice(0, 10);
         localStorage.setItem("watchHistory", JSON.stringify(updatedHistory));
+    };
+
+    const handleEpisodeClick = (ep) => {
+        console.log("handleEpisodeClick được gọi với ep:", ep, "movie_id:", id);
+        setCurrentEpisode(ep);
+        recordHistory(movie?.title, id);
     };
 
     if (loading) return <div>Đang tải...</div>;
@@ -139,24 +195,21 @@ const MoviePlayer = () => {
                 <h3>DANH SÁCH TẬP</h3>
                 <div className="episodes">
                     {Array.isArray(movie.episodes) && movie.episodes.length > 0 ? (
-                        movie.episodes.map((ep) => (
+                        movie.episodes.map((ep, index) => (
                             <button
-                                key={ep.episode_id}
+                                key={`episode-${index}`} // Sử dụng index để đảm bảo key duy nhất
                                 className={
                                     Number(ep.episode) === Number(currentEpisode?.episode)
                                         ? "active"
                                         : ""
                                 }
-                                onClick={() => {
-                                    setCurrentEpisode(ep);
-                                    recordHistory(movie.title, id);
-                                }}
+                                onClick={() => handleEpisodeClick(ep)}
                             >
                                 Tập {ep.episode}
                             </button>
                         ))
                     ) : (
-                        <p>Chưa có tập phim nào.</p>
+                        <p>Không có tập phim nào để hiển thị.</p>
                     )}
                 </div>
             </div>
@@ -203,8 +256,8 @@ const MoviePlayer = () => {
                 </form>
                 <div className="reviews-list">
                     {reviews.length > 0 ? (
-                        reviews.map((review) => (
-                            <div key={review.review_id} className="review">
+                        reviews.map((review, index) => (
+                            <div key={`review-${index}`} className="review">
                                 <p>
                                     <strong>{review.user_name}</strong> (
                                     {new Date(review.review_date).toLocaleString()}) -

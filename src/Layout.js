@@ -18,6 +18,7 @@ import CategoryMovies from "./pages/User/TheLoai";
 import AddMovie from "./components/AddMovie";
 import Favorites from "./pages/User/FavoritesList";
 import MovieDetail from "./pages/User/MovieDetail";
+import WatchHistoryList from "./pages/User/WatchHistoryList";
 
 export default function Layout() {
     const location = useLocation();
@@ -38,6 +39,7 @@ export default function Layout() {
           <Route path="/movies/search" element={<SearchResults />} />
           <Route path="/movies/favorites" element={<Favorites/>}/>
           <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
+          <Route path="/movies/watch-history" element={<WatchHistoryList />} />
           <Route
             path="/profile"
             element={
