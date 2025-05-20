@@ -71,22 +71,6 @@ function Header() {
           <li>
             <Link to="/">TRANG CHỦ</Link>
           </li>
-          {/* <li className="dropdown">
-            <Link to="/dang-anime" className="dropdown-toggle">
-              DẠNG ANIME
-            </Link>
-            <ul className="dropdown-menu">
-              <li>
-                <Link to="/dang-anime/phim-1">Phim 1</Link>
-              </li>
-              <li>
-                <Link to="/dang-anime/phim-2">Phim 2</Link>
-              </li>
-              <li>
-                <Link to="/dang-anime/phim-3">Phim 3</Link>
-              </li>
-            </ul>
-          </li> */}
           <li className="dropdown">
             <span className="dropdown-title"> THỂ LOẠI</span>
             <div className="dropdown-content">

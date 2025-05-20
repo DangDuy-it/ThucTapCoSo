@@ -149,9 +149,16 @@ const MovieDetail = () => {
                     <div className="movie-detail-poster">
                         <img src={movie.image_url} alt={movie.title} />
                         <div className="movie-button">
-                            <Link to={`/movie/${id}/episode/${newestEpisode.episode}`} className="watch-movie-btn">
-                                XEM PHIM
-                            </Link>
+                            {newestEpisode ? (
+                                <Link to={`/movie/${id}/episode/${newestEpisode.episode}`} className="watch-movie-btn">
+                                    XEM PHIM
+                                </Link>
+                            ) : (
+                                // Nếu không có tập phim nào, hiển thị nút bị vô hiệu hóa hoặc thông báo
+                                <button className="watch-movie-btn disabled" disabled>
+                                    KHÔNG CÓ TẬP NÀO
+                                </button>
+                            )}
                             <button
                                 onClick={toggleFavorite}
                                 className={`favorite-btn ${isFavorite ? "remove" : "add"}`}
