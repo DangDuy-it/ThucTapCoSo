@@ -35,7 +35,7 @@ export default function Layout() {
           <Route path="/the-loai/:name" element={<CategoryMovies />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/movie/:id" element={<MoviePlayer />} />
+          <Route path="/movie/:id/episode/:episodeNumber" element={<MoviePlayer />} />
           <Route path="/movies/search" element={<SearchResults />} />
           <Route path="/movies/favorites" element={<Favorites/>}/>
           <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
