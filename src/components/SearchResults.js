@@ -36,7 +36,7 @@ function SearchResults() {
         <ul className="movie-list">
           {results.map((movie) => (
             <li key={movie.id} className="movie-card">
-              <a href={`/movie/${movie.id}`}>
+              <a href={`/movieDetail/${movie.id}`}>
                 <img src={movie.image_url} alt={movie.title} />
                 <div className="movie-title">{movie.title}</div>
               </a>
