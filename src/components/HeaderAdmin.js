@@ -1,16 +1,31 @@
-import { Link, useNavigate } from 'react-router-dom'; // Thêm useNavigate
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'; 
 import '../styles/HeaderAdmin.css';
 import logo_web from "../picture/logo-1.webp";
 
 function HeaderAdmin() {
     const navigate = useNavigate(); // Sử dụng useNavigate để điều hướng
-
+    const [searchTerm, setSearchTerm]= useState('');
     // Hàm xử lý đăng xuất
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         window.dispatchEvent(new Event("userChanged")); // Gửi sự kiện để cập nhật Header
         navigate("/login"); // Chuyển hướng đến trang đăng nhập
+    };
+        // Hàm xử lý thay đổi trong ô tìm kiếm
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    // Hàm xử lý gửi yêu cầu tìm kiếm (ví dụ: khi nhấn Enter)
+    const handleSearchSubmit = (event) => {
+        if (event.key === 'Enter') {
+            if (searchTerm.trim() !== '') {
+                navigate(`/admin/search?userName=${encodeURIComponent(searchTerm.trim())}`);
+                setSearchTerm('');
+            } 
+        }
     };
 
     return (
@@ -28,7 +43,15 @@ function HeaderAdmin() {
             </div>
             <div className="search">
                 <ul>
-                    <li><input placeholder="Tìm kiếm" type="text" /></li>
+                    <li>
+                        <input 
+                        placeholder="Tìm kiếm" 
+                        type="text" 
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        onKeyDown={handleSearchSubmit}
+                        />
+                    </li>
                 </ul>
             </div>
             <div className="user-infor">
@@ -38,9 +61,7 @@ function HeaderAdmin() {
                             Đăng Xuất
                         </button>
                 </ul>
-            </div>
-
-                    
+            </div>         
         </nav>
     );
 }
