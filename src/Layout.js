@@ -20,6 +20,7 @@ import Favorites from "./pages/User/FavoritesList";
 import MovieDetail from "./pages/User/MovieDetail";
 import WatchHistoryList from "./pages/User/WatchHistoryList";
 import ListSearchUser from "./pages/Admin/ListSearchUser";
+import ListSearchMovie from "./pages/Admin/ListSearchMovie";
 
 export default function Layout() {
     const location = useLocation();
@@ -54,7 +55,8 @@ export default function Layout() {
           <Route path="/admin/user/:userId" element={<UserInfor />} />
           <Route path="/admin/edit/:movieId" element={<EditMovie />} />
           <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
-          <Route path="/admin/search" element={<ListSearchUser />} />
+          <Route path="/admin/search-users" element={<ListSearchUser />} />
+          <Route path="/admin/search-movies" element={<ListSearchMovie />} />
           <Route path="/admin/add" element={<AddMovie/>} />
         </Routes>
       </>

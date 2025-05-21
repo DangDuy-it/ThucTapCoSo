@@ -81,7 +81,7 @@ const searchUsers= (req, res)=>{
     db.query(sql, [searchPattern], (err,results) =>{
         if (err){
             console.error('Lỗi tìm kiếm người dùng:', err);
-            return res.status(500).json({message:"Lỗi máy chủ khi tìm kiếm người dùng."});
+            return res.status(500).json({message:"Lỗi máy chủ."});
         }
         if (results.length===0){
             return res.status(404).json({message:"Không tìm thấy người dùng phù hợp."});

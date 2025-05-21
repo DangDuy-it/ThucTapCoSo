@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React, { useState } from 'react'; 
 import '../styles/HeaderAdmin.css';
 import logo_web from "../picture/logo-1.webp";
 
 function HeaderAdmin() {
     const navigate = useNavigate(); // Sử dụng useNavigate để điều hướng
+    const location= useLocation();
     const [searchTerm, setSearchTerm]= useState('');
     // Hàm xử lý đăng xuất
     const handleLogout = () => {
@@ -22,10 +23,26 @@ function HeaderAdmin() {
     const handleSearchSubmit = (event) => {
         if (event.key === 'Enter') {
             if (searchTerm.trim() !== '') {
-                navigate(`/admin/search?userName=${encodeURIComponent(searchTerm.trim())}`);
+                const currentPath= location.pathname;
+                const trimmedSearchTerm = searchTerm.trim(); 
+
+                if (currentPath.includes('/manageuser') || currentPath.includes('/admin/search-users')){
+                    navigate(`/admin/search-users?userName=${encodeURIComponent(trimmedSearchTerm)}`);
+                } else if (currentPath.includes('/managemovie') || currentPath.includes('/admin/search-movies')){
+                    navigate(`/admin/search-movies?movieName=${encodeURIComponent(trimmedSearchTerm)}`);
+                }
                 setSearchTerm('');
             } 
         }
+    };
+    const getPlaceHolder=()=>{
+        const currentPath= location.pathname;
+        if (currentPath.includes('/manageuser') || currentPath.includes('/admin/search-users')){
+            return "Tìm kiếm người dùng"
+        }else if (currentPath.includes('/managemovie') || currentPath.includes('/admin/search-movies')){
+            return "Tìm kiếm phim"
+        }
+        return "Tìm kiếm" 
     };
 
     return (
@@ -45,7 +62,7 @@ function HeaderAdmin() {
                 <ul>
                     <li>
                         <input 
-                        placeholder="Tìm kiếm" 
+                        placeholder={getPlaceHolder()}
                         type="text" 
                         value={searchTerm}
                         onChange={handleSearchChange}

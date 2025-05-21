@@ -15,7 +15,6 @@ function SearchResults() {
   useEffect(() => {
     if (keyword) {
       axios
-
         .get(`http://localhost:3001/api/movies/search?q=${encodeURIComponent(keyword.trim())}`)
         .then((res) => setResults(res.data))
         .catch((err) => console.error("Lỗi tìm kiếm:", err));
