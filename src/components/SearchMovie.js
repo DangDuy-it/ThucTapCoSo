@@ -62,7 +62,7 @@ function SearchMovie(){
                 </div>    
                 </>
             ):(
-                <p>Không tìm thấy phim </p>
+                <p className="No">Không tìm thấy phim </p>
             )}
             
         </div>
