@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import " ../styles/Login.css";
+import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
