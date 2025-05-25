@@ -26,9 +26,9 @@ function HeaderAdmin() {
                 const currentPath= location.pathname;
                 const trimmedSearchTerm = searchTerm.trim(); 
 
-                if (currentPath.includes('/manageuser') || currentPath.includes('/admin/search-users')){
+                if (currentPath.includes('/admin/manage-user') || currentPath.includes('/admin/search-users')){
                     navigate(`/admin/search-users?userName=${encodeURIComponent(trimmedSearchTerm)}`);
-                } else if (currentPath.includes('/managemovie') || currentPath.includes('/admin/search-movies')){
+                } else if (currentPath.includes('/admin/manage-movie') || currentPath.includes('/admin/search-movies')){
                     navigate(`/admin/search-movies?movieName=${encodeURIComponent(trimmedSearchTerm)}`);
                 }
                 setSearchTerm('');
@@ -37,9 +37,9 @@ function HeaderAdmin() {
     };
     const getPlaceHolder=()=>{
         const currentPath= location.pathname;
-        if (currentPath.includes('/manageuser') || currentPath.includes('/admin/search-users')){
+        if (currentPath.includes('/admin/manage-user') || currentPath.includes('/admin/search-users')){
             return "Tìm kiếm người dùng"
-        }else if (currentPath.includes('/managemovie') || currentPath.includes('/admin/search-movies')){
+        }else if (currentPath.includes('/admin/manage-movie') || currentPath.includes('/admin/search-movies')){
             return "Tìm kiếm phim"
         }
         return "Tìm kiếm" 
@@ -48,14 +48,14 @@ function HeaderAdmin() {
     return (
         <nav>
             <div className="logo">
-                <Link to="/">
+                <Link to="/admin/manage-user">
                     <img src={logo_web} alt="Logo" className="logo-img" />
                 </Link>
             </div>
             <div className="header">
                 <ul>
-                    <li><Link to="/manageuser">QUẢN LÝ TÀI KHOẢN</Link></li>
-                    <li><Link to="/managemovie">QUẢN LÝ PHIM</Link></li>  
+                    <li><Link to="/admin/manage-user">QUẢN LÝ TÀI KHOẢN</Link></li>
+                    <li><Link to="/admin/manage-movie">QUẢN LÝ PHIM</Link></li>  
                 </ul>
             </div>
             <div className="search">

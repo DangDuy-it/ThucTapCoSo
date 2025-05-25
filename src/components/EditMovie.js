@@ -54,7 +54,7 @@ function EditMovie() {
         axios.put(`http://localhost:3001/api/movies/${movieId}`, movie)
             .then(() => {
                 alert("Cập nhật thành công!");
-                navigate('/managemovie');
+                navigate(-1);
             })
             .catch(err => {
                 console.error("Lỗi cập nhật:", err);
@@ -85,7 +85,7 @@ function EditMovie() {
                     </div>
                     <div className="button-container">
                         <button type="submit" className="save-button">Lưu thay đổi</button>
-                        <button type="button" onClick={() => navigate('/managemovie')} className="cancel-button">Hủy</button>
+                        <button type="button" onClick={() => navigate(-1)} className="cancel-button">Hủy</button>
                         <button type="button" onClick={()=> navigate(`/admin/add/${movieId}/episode`)} className='add-episode-button'>Thêm tập phim</button>
                     </div>
                 </div>

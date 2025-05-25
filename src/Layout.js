@@ -1,6 +1,9 @@
-import {Routes,Route,useLocation,} from "react-router-dom";
+import {Routes,Route} from "react-router-dom";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import HeaderAdmin from "./components/HeaderAdmin";
+import HeaderContent from "./components/HeaderContent";
+import HeaderTechnical from "./components/HeaderTechnical";
 import DangAnime from "./pages/User/DangAnime";
 import Home from "./pages/User/Home";
 import Login from "./pages/User/Login";
@@ -21,43 +24,70 @@ import MovieDetail from "./pages/User/MovieDetail";
 import WatchHistoryList from "./pages/User/WatchHistoryList";
 import ListSearchUser from "./pages/Admin/ListSearchUser";
 import ListSearchMovie from "./pages/Admin/ListSearchMovie";
+import ApprovedMovies from "./pages/ContentManager/ApprovedMovies";
+import PendingMovies from "./pages/ContentManager/PendingMovies";
 
 export default function Layout() {
-    const location = useLocation();
-    const isAdminRoute =
-      location.pathname.startsWith("/admin") ||
-      location.pathname.startsWith("/manage");
-  
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || { role: "user" });
+
+        useEffect(() => {
+            const handleUserChanged = () => {
+                const updatedUser = JSON.parse(localStorage.getItem("user")) || { role: "user" };
+                console.log("User updated:", updatedUser); // Debug
+                setUser(updatedUser);
+            };
+
+            window.addEventListener("userChanged", handleUserChanged);
+
+            return () => {
+                window.removeEventListener("userChanged", handleUserChanged);
+            };
+        }, []);
+
+    const renderHeader=()=>{
+      console.log("Current user role:", user.role);
+      switch (user.role){
+        case "admin":
+          return <HeaderAdmin/>;
+        case "content_manager":
+          return <HeaderContent/>;
+        case "technical":
+          return <HeaderTechnical/>;
+        case "user":
+        default:
+          return <Header/>;
+      }
+    };
+
     return (
       <>
-        {isAdminRoute ? <HeaderAdmin /> : <Header />}
+        {renderHeader()}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dang-anime" element={<DangAnime />} />
-          <Route path="/the-loai/:name" element={<CategoryMovies />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/movie/:id/episode/:episodeNumber" element={<MoviePlayer />} />
-          <Route path="/movies/search" element={<SearchResults />} />
-          <Route path="/movies/favorites" element={<Favorites/>}/>
-          <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
-          <Route path="/movies/watch-history" element={<WatchHistoryList />} />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/manageuser" element={<ManageUser />} />
-          <Route path="/managemovie" element={<ManageMovie />} />
-          <Route path="/admin/user/:userId" element={<UserInfor />} />
-          <Route path="/admin/edit/:movieId" element={<EditMovie />} />
-          <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
-          <Route path="/admin/search-users" element={<ListSearchUser />} />
-          <Route path="/admin/search-movies" element={<ListSearchMovie />} />
-          <Route path="/admin/add" element={<AddMovie/>} />
+          {/* Các route không cần bảo vệ */}
+                <Route path="/" element={<Home />} />
+                <Route path="/dang-anime" element={<DangAnime />} />
+                <Route path="/the-loai/:name" element={<CategoryMovies />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/movie/:id/episode/:episodeNumber" element={<MoviePlayer />} />
+                <Route path="/movies/search" element={<SearchResults />} />
+                <Route path="/movies/favorites" element={<Favorites/>}/>
+                <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
+                <Route path="/movies/watch-history" element={<WatchHistoryList />} />
+
+                {/*  */}
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/admin/manage-user" element={<ManageUser />} />
+                <Route path="/admin/manage-movie" element={<ManageMovie />} />
+                <Route path="/admin/user/:userId" element={<UserInfor />} />
+                <Route path="/admin/edit/:movieId" element={<EditMovie />} />
+                <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
+                <Route path="/admin/search-users" element={<ListSearchUser />} />
+                <Route path="/admin/search-movies" element={<ListSearchMovie />} />
+                <Route path="/admin/add" element={<AddMovie />} />
+                <Route path="/content/movies/approved" element={<ApprovedMovies/>} />
+                <Route path="/content/movies/pending" element={<PendingMovies/>} />
+                {/* Thêm route cho technical nếu có */}
         </Routes>
       </>
     );

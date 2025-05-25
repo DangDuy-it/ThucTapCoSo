@@ -13,6 +13,21 @@ function LoginForm() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    const setRole=(roleId)=>{
+        switch(roleId){
+            case 1:
+                return "admin";
+            case 2:
+                return "technical";       
+            case 3:
+                return "content_manager";         
+            case 4:
+                return "user";      
+            default:
+                return "user";
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -26,10 +41,15 @@ function LoginForm() {
             if (!res.data.user) {
                 throw new Error("Dữ liệu người dùng không hợp lệ từ API /login");
             }
-    
+
+            const user = {
+                ...res.data.user,
+                role: setRole(res.data.user.role_id),
+            };
+
             // Lưu token và user vào localStorage
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", JSON.stringify(res.data.user));
+            localStorage.setItem("user", JSON.stringify(user));
     
             toast.success("Đăng nhập thành công!", {
                 position: "top-right",
@@ -39,10 +59,20 @@ function LoginForm() {
             window.dispatchEvent(new Event("userChanged"));
     
             setTimeout(() => {
-                if (res.data.user.role_id === 1) {
-                    navigate("/manageuser"); // Chuyển hướng đến trang quản lý người dùng
-                } else {
-                    navigate("/");
+                switch(user.role){
+                    case "admin":
+                        navigate("/admin/manage-user");
+                        break;
+                    case "content_manager":
+                        navigate("/admin/manage-movie");
+                        break;
+                    case "technical":
+                        navigate("/technical");
+                        break;
+                    case "user":
+                    default:
+                        navigate("/");
+                        break;
                 }
             }, 2000);
         } catch (err) {

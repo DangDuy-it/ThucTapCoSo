@@ -52,11 +52,11 @@ function AddMovie(){
            // Xử lý kết quả thành công ở đây
            if (response.status === 201) {
                alert("Thêm phim thành công!");
-               navigate('/managemovie'); // Điều hướng về trang danh sách admin
+               navigate('/admin/manage-movie'); // Điều hướng về trang danh sách admin
            } else {
                // Xử lý các mã trạng thái thành công khác
                alert("Thêm phim thành công (API trả về trạng thái khác 201)!");
-               navigate('/managemovie');
+               navigate('/admin/manage-movie');
            }
        })
        .catch(error => {
