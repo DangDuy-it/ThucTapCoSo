@@ -10,7 +10,6 @@ import Login from "./pages/User/Login";
 import Register from "./pages/User/Register";
 import MoviePlayer from "./components/MoviePlayer";
 import Profile from "./pages/User/Profile";
-import ProtectedRoute from "./components/ProtectedRoute";
 import ManageUser from "./pages/Admin/ManageUser";
 import ManageMovie from "./pages/Admin/ManageMovie";
 import UserInfor from "./components/UserDetail";
@@ -22,10 +21,12 @@ import AddMovie from "./components/AddMovie";
 import Favorites from "./pages/User/FavoritesList";
 import MovieDetail from "./pages/User/MovieDetail";
 import WatchHistoryList from "./pages/User/WatchHistoryList";
+import MovieDetailAdmin from "./pages/Admin/MovieDetail";
 import ListSearchUser from "./pages/Admin/ListSearchUser";
 import ListSearchMovie from "./pages/Admin/ListSearchMovie";
 import ApprovedMovies from "./pages/ContentManager/ApprovedMovies";
 import PendingMovies from "./pages/ContentManager/PendingMovies";
+import ContentMovies from "./pages/ContentManager/ContentMovies";
 
 export default function Layout() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || { role: "user" });
@@ -79,12 +80,14 @@ export default function Layout() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/admin/manage-user" element={<ManageUser />} />
                 <Route path="/admin/manage-movie" element={<ManageMovie />} />
+                <Route path="/admin/moviedetail/:movieId" element={<MovieDetailAdmin/>}/>
                 <Route path="/admin/user/:userId" element={<UserInfor />} />
                 <Route path="/admin/edit/:movieId" element={<EditMovie />} />
                 <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
                 <Route path="/admin/search-users" element={<ListSearchUser />} />
                 <Route path="/admin/search-movies" element={<ListSearchMovie />} />
                 <Route path="/admin/add" element={<AddMovie />} />
+                <Route path="/content/movies/all" element={<ContentMovies/>}/>
                 <Route path="/content/movies/approved" element={<ApprovedMovies/>} />
                 <Route path="/content/movies/pending" element={<PendingMovies/>} />
                 {/* Thêm route cho technical nếu có */}

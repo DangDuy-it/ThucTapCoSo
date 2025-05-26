@@ -64,7 +64,7 @@ function LoginForm() {
                         navigate("/admin/manage-user");
                         break;
                     case "content_manager":
-                        navigate("/admin/manage-movie");
+                        navigate("/content/movies/all");
                         break;
                     case "technical":
                         navigate("/technical");

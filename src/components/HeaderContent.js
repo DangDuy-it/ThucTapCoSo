@@ -8,12 +8,6 @@ function ContentHeader() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Xác định trang hiện tại
-  const currentPage = location.pathname.split('/').pop(); // 'all', 'approved', hoặc 'pending'
 
   // Hàm xử lý đăng xuất
   const handleLogout = () => {
@@ -23,96 +17,25 @@ function ContentHeader() {
     navigate("/login");
   };
 
-  // Hàm lấy placeholder cho ô tìm kiếm
-  const getSearchPlaceholder = () => {
-    switch(currentPage) {
-      case 'approved': return 'phim đã duyệt';
-      case 'pending': return 'phim chờ duyệt';
-      default: return 'tất cả phim';
-    }
-  };
-
-  // Hàm tìm kiếm phim
-  const searchMovies = async (query) => {
-    try {
-      setIsLoading(true);
-      let url = `http://localhost:3001/api/movies/search?query=${encodeURIComponent(query)}`;
-      
-      // Thêm filter theo trang hiện tại
-      if (currentPage === 'approved') {
-        url += '&status=approved';
-      } else if (currentPage === 'pending') {
-        url += '&status=pending';
+  const handleSearchChange = (event)=>{
+    setSearchTerm(event.target.value);
+  }
+  
+  const handleSearchSubmit=(event)=>{
+    if(event.key=== 'Enter'){
+      if(searchTerm.trim()!== ''){
+        const trimmedSearchTerm= searchTerm.trim();
+        navigate(`/admin/search-movies?movieName=${encodeURIComponent(trimmedSearchTerm)}`);
       }
-
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      console.error("Lỗi khi tìm kiếm phim:", error);
-      return [];
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Hàm xử lý thay đổi ô tìm kiếm (gợi ý)
-  const handleSearchChange = async (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-
-    if (value.length > 1) {
-      const results = await searchMovies(value);
-      setSuggestions(results.slice(0, 5)); // Giới hạn 5 gợi ý
-      setShowSuggestions(true);
-    } else {
-      setSuggestions([]);
-      setShowSuggestions(false);
-    }
-  };
-
-  // Hàm xử lý khi nhấn Enter
-  const handleSearchSubmit = (e) => {
-    if (e.key === 'Enter' && searchTerm.trim()) {
-      const query = encodeURIComponent(searchTerm.trim());
-      let searchPath = '';
-      
-      // Điều hướng theo trang hiện tại
-      switch(currentPage) {
-        case 'approved':
-          searchPath = `/content/movies/search-approved?query=${query}`;
-          break;
-        case 'pending':
-          searchPath = `/content/movies/search-pending?query=${query}`;
-          break;
-        default:
-          searchPath = `/content/movies/search-all?query=${query}`;
-      }
-
-      navigate(searchPath);
       setSearchTerm('');
-      setShowSuggestions(false);
     }
-  };
-
-  // Hàm chọn một gợi ý
-  const handleSuggestionClick = (movie) => {
-    navigate(`/content/movies/detail/${movie.movie_id}`);
-    setSearchTerm('');
-    setShowSuggestions(false);
-  };
-
-  // Đóng gợi ý khi click ra ngoài
-  useEffect(() => {
-    const handleClickOutside = () => setShowSuggestions(false);
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
-
+  }
+  
   return (
     <nav>
       {/* Logo */}
       <div className="logo">
-        <Link to="/admin/manage-movie">
+        <Link to="/content/movies/all">
           <img src={logo_web} alt="Logo" className="logo-img" />
         </Link>
       </div>
@@ -122,8 +45,8 @@ function ContentHeader() {
         <ul>
           <li>
             <Link
-              to="/admin/manage-movie"
-              className={`nav-link ${location.pathname === '/admin/manage-movie' ? 'active' : 'inactive'}`}
+              to="/content/movies/all"
+              className={`nav-link ${location.pathname === '/content/movies/all' ? 'active' : 'inactive'}`}
             >
               Tất cả phim
             </Link>
@@ -151,37 +74,12 @@ function ContentHeader() {
       <div className="search">
         <div className="search-container">
           <input
-            type="text"
-            placeholder={`Tìm kiếm ${getSearchPlaceholder()}...`}
-            value={searchTerm}
-            onChange={handleSearchChange}
-            onKeyDown={handleSearchSubmit}
-            onClick={(e) => e.stopPropagation()}
-            className="search-input"
+          placeholder='Tìm kiếm'
+          type='text'
+          value={searchTerm}
+          onChange={handleSearchChange}
+          onKeyDown={handleSearchSubmit}
           />
-          
-          {/* Gợi ý tìm kiếm */}
-          {showSuggestions && suggestions.length > 0 && (
-            <div className="suggestions">
-              {suggestions.map((movie) => (
-                <div
-                  key={movie.movie_id}
-                  className="suggestion-item"
-                  onClick={() => handleSuggestionClick(movie)}
-                >
-                  <div className="suggestion-title">{movie.title}</div>
-                  <div className="suggestion-details">
-                    {movie.year} • {movie.genre} • {movie.status === 'approved' ? 'Đã duyệt' : 'Chờ duyệt'}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-          
-          {/* Loading indicator */}
-          {isLoading && (
-            <div className="loading-spinner"></div>
-          )}
         </div>
       </div>
 

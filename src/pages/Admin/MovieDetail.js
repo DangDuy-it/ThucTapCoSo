@@ -1,11 +1,11 @@
 import '../../styles/Home.css';
-import ListMovie from '../../components/ListMovie';
+import MovieDetailAdmin from '../../components/MovieDetailAdmin';
 
 function Home(){
     return(
         <div>
             <div className="content">
-            <ListMovie></ListMovie>
+            <MovieDetailAdmin></MovieDetailAdmin>
             </div>
         </div>
     );

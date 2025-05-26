@@ -1,0 +1,174 @@
+/* Toàn bộ giao diện dùng tone tối */
+.movie-detail-admin-container {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 900px;
+    margin: 40px auto;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header: hình ảnh và thông tin phim */
+.movie-detail-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.movie-detail-poster img {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.movie-info-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-info-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.movie-detail-status {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.red-status {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.green-status {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.movie-info-details p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+/* Danh sách tập phim */
+.episode-list {
+    margin-top: 25px;
+}
+
+.episode-list-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.episode-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.episode-button {
+    background-color: #2c2c2c;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.episode-button:hover {
+    background-color: #3b3b3b;
+}
+
+/* Nút hành động duyệt / từ chối */
+.action-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.action-button {
+    width: 140px;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reject-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.reject-button:hover:enabled {
+    background-color: #c0392b;
+}
+
+.approve-button {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.approve-button:hover:enabled {
+    background-color: #27ae60;
+}
+
+.action-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Trạng thái hiển thị */
+.loading-message,
+.error-message,
+.not-found-message {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 18px;
+    color: #ccc;
+}
+.movie-detail-status .Approved {
+    color: #28a745; /* Màu xanh lá cây */
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 5px; /* Để tạo khoảng cách với "Trạng thái:" */
+}
+
+/* Màu sắc cho trạng thái Đang chờ (Pending) */
+.movie-detail-status .Pending {
+    color: #ffc107; /* Màu vàng cam */
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 5px; /* Để tạo khoảng cách với "Trạng thái:" */
+}
+.movie-description {
+    margin-top: 20px; /* Khoảng cách từ header */
+    padding: 0 10px;
+    min-height: 100px; 
+    /* Padding nhẹ ở hai bên nếu cần */
+    /* Mặc định là block level, sẽ tự động chiếm full width */
+}
+
+
+.movie-description .movie-description-text {
+    color: white; /* Màu chữ cho nội dung mô tả */
+    line-height: 1.5; /* Khoảng cách dòng để dễ đọc */
+    font-size: 1.0em; /* Kích thước chữ */
+    text-align: justify; /* Căn đều hai bên */
+    padding: 0;
+    margin: 0;
+}

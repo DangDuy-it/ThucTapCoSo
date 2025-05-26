@@ -107,7 +107,7 @@ function AnimeItem({movie_id, title, image_url, genre, year, duration, episodes,
                 <p><strong>Thể loại:</strong> {genre}</p>
                 <p><strong>Năm phát hành:</strong> {year}</p>
                 <p><strong>Thời lượng:</strong> {duration} phút</p>
-                {<p><strong>Số tập:</strong> episodes &&  {episodes} ( Đang cập nhật )</p>}
+                {<p><strong>Số tập:</strong> {episodes} ( Đang cập nhật )</p>}
                 <div className={`status ${getStatusClass()}`}>
                     <span className="dot" />
                     Trạng thái: {status}

@@ -19,20 +19,16 @@ function AdminList() {
             <div className="list-movie-tag">
                 <li>Quản lý phim</li>
             </div>
-            {/* <div className="button-add">
+            <div className="button-add">
                 <Link to={`/admin/add`}>
                     <button>THÊM PHIM</button>
                 </Link>
-            </div> */}
+            </div>
             <div className="list-movie">
                 {animeList.map((item) => (
-                    <Link
-                        to={`/admin/moviedetail/${item.movie_id}`}
+                    <AnimeItem
                         key={item.movie_id}
                         movie_id={item.movie_id}
-                        className='nav-link'
-                    >
-                    <AnimeItem
                         title={item.title}
                         image_url={item.image_url}
                         genre={item.genre}
@@ -41,7 +37,6 @@ function AdminList() {
                         episodes={item.episodes}
                         status={item.status}
                     />
-                    </Link>
                 ))}
             </div>
         </div>
@@ -54,6 +49,20 @@ function AnimeItem({movie_id, title, image_url, genre, year, duration, episodes,
         if (status === 'Approved') return 'approved';
         if (status === 'Pending') return 'pending';
         return 'review';
+    };
+    //
+    const handleDelete = (id) => {
+        if (window.confirm("Bạn có chắc muốn xóa phim này không?")) {
+            axios.delete(`http://localhost:3001/api/movies/${movie_id}`)
+                .then(() => {
+                    alert("Xóa phim thành công!");
+                    window.location.reload(); // Load lại danh sách
+                })
+                .catch(err => {
+                    console.error("Lỗi khi xóa:", err);
+                    alert("Xóa thất bại!");
+                });
+        }
     };
 
     return (
@@ -78,12 +87,12 @@ function AnimeItem({movie_id, title, image_url, genre, year, duration, episodes,
                     Trạng thái: {status}
                 </div>
             </div>
-            {/* <div className="actions">
+            <div className="actions">
                 <Link to={`/admin/edit/${movie_id}`}>
                     <button>Sửa thông tin phim</button>
                 </Link>
                 <button onClick={() => handleDelete(movie_id)}>Xóa Phim</button>
-            </div> */}
+            </div>
 
         </div>
     );

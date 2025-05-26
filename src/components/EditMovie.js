@@ -113,11 +113,7 @@ function EditMovie() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="status">Trạng thái:</label>
-                        <select id="status" name="status" value={movie.status} onChange={handleChange}>
-                            <option value="Approved">Approved</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Rejected">Rejected</option>
-                        </select>
+                        <input type="text" name="stauts" id="status" value={movie.status} disabled />
                     </div>
                     <div className="form-group">
                         <label htmlFor="image_url">URL ảnh:</label>
