@@ -67,7 +67,7 @@ function LoginForm() {
                         navigate("/content/movies/all");
                         break;
                     case "technical":
-                        navigate("/technical");
+                        navigate("/technical/responsed");
                         break;
                     case "user":
                     default:
