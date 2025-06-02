@@ -79,7 +79,8 @@ const getFavorites=(req, res) =>{
         SELECT m.movie_id, m.title, m.description, m.image_url
         FROM favorites f
         JOIN movies m ON f.movie_id = m.movie_id
-        WHERE f.user_id=?
+        WHERE f.user_id=? AND m.status='Approved'
+        ORDER BY f.added_at DESC
     `
     db.query(sql, [userId], (err, result) =>{
         // Phản hồi lỗi

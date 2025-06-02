@@ -7,7 +7,7 @@ const getWatchHistory = (req, res) => {
         SELECT m.movie_id, m.title, m.description, m.image_url, wh.watched_at
         FROM watchhistory wh
         JOIN movies m ON wh.movie_id = m.movie_id
-        WHERE wh.user_id = ?
+        WHERE wh.user_id = ? AND m.status='Approved'
         ORDER BY wh.watched_at DESC
     `;
     db.query(sql, [userId], (err, result) => {

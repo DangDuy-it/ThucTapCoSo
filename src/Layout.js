@@ -66,7 +66,7 @@ export default function Layout() {
       <>
         {renderHeader()}
         <Routes>
-          {/* Các route không cần bảo vệ */}
+                {/* Các Route của Người dùng */}
                 <Route path="/" element={<Home />} />
                 <Route path="/dang-anime" element={<DangAnime />} />
                 <Route path="/the-loai/:name" element={<CategoryMovies />} />
@@ -77,8 +77,6 @@ export default function Layout() {
                 <Route path="/movies/favorites" element={<Favorites/>}/>
                 <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
                 <Route path="/movies/watch-history" element={<WatchHistoryList />} />
-
-                {/*  */}
                 <Route path="/profile" element={<Profile />} />
 
                 {/* Các Route của Quản trị viên */}
@@ -100,7 +98,7 @@ export default function Layout() {
                 <Route path="/content/movies/search-approved" element={<ApprovedMovies />} />
                 <Route path="/content/movies/search-pending" element={<PendingMovies />} />
         
-                {/* Thêm route cho technical nếu có */}
+                {/* Các Route của Kỹ thuật viên */}
                 <Route path="/technical/responsed" element={<TechnicalHome/>}/>
 
         </Routes>
