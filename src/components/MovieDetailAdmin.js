@@ -97,15 +97,15 @@ const handleStatusUpdate = async (newStatusText) => {
 
             <div className="action-buttons-container">
                 <button
-                    className="action-button reject-button"
-                    onClick={() => handleStatusUpdate('Pending')} // Pass 'Pending'
+                    className="action-button-admin reject-button"
+                    onClick={() => handleStatusUpdate('Pending')} 
                     disabled={movie.status === 'Pending'}
                 >
                     Từ chối
                 </button>
                 <button
-                    className="action-button approve-button"
-                    onClick={() => handleStatusUpdate('Approved')} // Pass 'Approved'
+                    className="action-button-admin approve-button"
+                    onClick={() => handleStatusUpdate('Approved')} 
                     disabled={movie.status === 'Approved'}
                 >
                     Duyệt

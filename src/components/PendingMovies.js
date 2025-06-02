@@ -39,7 +39,7 @@ function PendingMovies() {
         <li>Quản lý phim (Phim chờ duyệt)</li>
       </div>
       <div className="button-add">
-        <Link to="/admin/add">
+        <Link to="/content/add">
           <button>THÊM PHIM</button>
         </Link>
       </div>
@@ -68,7 +68,7 @@ function PendingMovies() {
 }
 
 function AnimeItem({ movie_id, title, image_url, genre, year, duration, episodes, status, onDelete }) {
-  const getStatusClass = () => 'pending';
+  const getStatusClass = () => 'Pending';
 
   const handleDelete = () => {
     if (window.confirm('Bạn có chắc muốn xóa phim này không?')) {
@@ -105,7 +105,7 @@ function AnimeItem({ movie_id, title, image_url, genre, year, duration, episodes
         </div>
       </div>
       <div className="actions">
-        <Link to={`/admin/edit/${movie_id}`}>
+        <Link to={`/content/edit/${movie_id}`}>
           <button>Sửa thông tin phim</button>
         </Link>
         <button onClick={handleDelete}>Xóa Phim</button>

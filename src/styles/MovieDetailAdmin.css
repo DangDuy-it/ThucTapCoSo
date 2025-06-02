@@ -96,7 +96,7 @@
     margin-top: 40px;
 }
 
-.action-button {
+.action-button-admin {
     width: 140px;
     padding: 15px;
     font-size: 18px;
@@ -105,6 +105,11 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.action-button-admin:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .reject-button {
@@ -125,10 +130,6 @@
     background-color: #27ae60;
 }
 
-.action-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
 
 /* Trạng thái hiển thị */
 .loading-message,

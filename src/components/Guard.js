@@ -8,7 +8,7 @@ export default function Guard({ children }) {
 
   // Các route cấm người dùng thông thường truy cập
   const isAdminRoute = path.startsWith("/admin");
-  const isContentRoute = path.startsWith("/content") || path.startsWith("/admin");
+  const isContentRoute = path.startsWith("/content");
   const isTechnicalRoute = path.startsWith("/technical");
 
   // Nếu chưa đăng nhập → cho phép truy cập các giao diện cơ bản

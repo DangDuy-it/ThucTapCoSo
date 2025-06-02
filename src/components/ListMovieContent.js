@@ -36,7 +36,7 @@ function AdminListAll() {
         <li>Quản lý phim (Tất cả phim)</li>
       </div>
       <div className="button-add">
-        <Link to={`/admin/add`}>
+        <Link to={`/content/add`}>
           <button>THÊM PHIM</button>
         </Link>
       </div>
@@ -83,11 +83,11 @@ function AnimeItem({ movie_id, title, image_url, genre, year, duration, episodes
         {episodes && <p><strong>Số tập:</strong> {episodes}</p>}
         <div className={`status ${getStatusClass()}`}>
           <span className="dot" />
-          Trạng thái: {status === 'approved' ? 'Đã duyệt' : 'Chờ duyệt'}
+          Trạng thái: {status === 'Approved' ? 'Đã duyệt' : 'Chờ duyệt'}
         </div>
       </div>
       <div className="actions">
-        <Link to={`/admin/edit/${movie_id}`}>
+        <Link to={`/content/edit/${movie_id}`}>
           <button>Sửa thông tin phim</button>
         </Link>
         <button onClick={handleDelete}>Xóa Phim</button>

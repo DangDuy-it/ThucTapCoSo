@@ -80,15 +80,18 @@ export default function Layout() {
 
                 {/*  */}
                 <Route path="/profile" element={<Profile />} />
+
+                {/* Các Route của Quản trị viên */}
                 <Route path="/admin/manage-user" element={<ManageUser />} />
                 <Route path="/admin/manage-movie" element={<ManageMovie />} />
                 <Route path="/admin/moviedetail/:movieId" element={<MovieDetailAdmin/>}/>
                 <Route path="/admin/user/:userId" element={<UserInfor />} />
-                <Route path="/admin/edit/:movieId" element={<EditMovie />} />
-                <Route path="/admin/add/:movieId/episode" element={<AddEpisode />} />
                 <Route path="/admin/search-users" element={<ListSearchUser />} />
                 <Route path="/admin/search-movies" element={<ListSearchMovie />} />
-                <Route path="/admin/add" element={<AddMovie />} />
+
+                {/* Các Route của Quản lý nội dung */}
+                <Route path="/content/add" element={<AddMovie />} />
+                <Route path="/content/edit/:movieId" element={<EditMovie />} />
                 <Route path="/content/movies/all" element={<ContentMovies/>}/>
                 <Route path="/content/movies/approved" element={<ApprovedMovies/>} />
                 <Route path="/content/movies/pending" element={<PendingMovies/>} />

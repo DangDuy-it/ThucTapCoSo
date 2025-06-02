@@ -75,6 +75,13 @@
 }
 
 
+.status.Pending .dot {
+    background-color: red;
+}
+
+.status.Approved .dot {
+    background-color: limegreen;
+}
 .status.pending .dot {
     background-color: red;
 }
