@@ -152,7 +152,7 @@ function AddMovie(){
                     />
                 </div>
                 <div className="button-container">
-                    <button type="submit" className="submit-button">Thêm Tập</button>
+                    <button type="submit" className="submit-button">Thêm Phim</button>
                     <button type="button" onClick={() => navigate(-1)} className="cancel-button">Hủy</button>
                 </div>
             </form>

@@ -86,7 +86,7 @@ function EditMovie() {
                     <div className="button-container">
                         <button type="submit" className="save-button">Lưu thay đổi</button>
                         <button type="button" onClick={() => navigate(-1)} className="cancel-button">Hủy</button>
-                        <button type="button" onClick={()=> navigate(`/admin/add/${movieId}/episode`)} className='add-episode-button'>Thêm tập phim</button>
+                        {/* <button type="button" onClick={()=> navigate(`/admin/add/${movieId}/episode`)} className='add-episode-button'>Thêm tập phim</button> */}
                     </div>
                 </div>
                 {/* Các trường input như trước */}

@@ -1,46 +1,66 @@
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
 import logo_web from '../picture/logo-1.webp';
 import '../styles/HeaderContent.css';
 
-function ContentHeader() {
+function HeaderContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Xác định trang hiện tại
+  const currentPage = location.pathname.split('/').pop(); // 'all', 'approved', 'pending'
+
   // Hàm xử lý đăng xuất
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.dispatchEvent(new Event("userChanged"));
-    navigate("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.dispatchEvent(new Event('userChanged'));
+    navigate('/login');
   };
 
-  const handleSearchChange = (event)=>{
-    setSearchTerm(event.target.value);
-  }
-  
-  const handleSearchSubmit=(event)=>{
-    if(event.key=== 'Enter'){
-      if(searchTerm.trim()!== ''){
-        const trimmedSearchTerm= searchTerm.trim();
-        navigate(`/admin/search-movies?movieName=${encodeURIComponent(trimmedSearchTerm)}`);
-      }
-      setSearchTerm('');
+  // Hàm lấy placeholder cho ô tìm kiếm
+  const getSearchPlaceholder = () => {
+    switch (currentPage) {
+      case 'approved':
+        return 'phim đã duyệt';
+      case 'pending':
+        return 'phim chờ duyệt';
+      default:
+        return 'tất cả phim';
     }
-  }
-  
+  };
+
+  // Hàm xử lý khi nhấn Enter
+  const handleSearchSubmit = (e) => {
+    if (e.key !== 'Enter' || !searchTerm.trim()) return;
+
+    const query = encodeURIComponent(searchTerm.trim());
+    let searchPath = '';
+
+    // Điều hướng theo trang hiện tại
+    switch (currentPage) {
+      case 'approved':
+        searchPath = `/content/movies/search-approved?query=${query}`;
+        break;
+      case 'pending':
+        searchPath = `/content/movies/search-pending?query=${query}`;
+        break;
+      default:
+        searchPath = `/content/movies/search-all?query=${query}`;
+    }
+
+    navigate(searchPath);
+    setSearchTerm('');
+  };
+
   return (
     <nav>
-      {/* Logo */}
       <div className="logo">
         <Link to="/content/movies/all">
           <img src={logo_web} alt="Logo" className="logo-img" />
         </Link>
       </div>
-
-      {/* Menu chính */}
       <div className="header">
         <ul>
           <li>
@@ -69,29 +89,23 @@ function ContentHeader() {
           </li>
         </ul>
       </div>
-
-      {/* Ô tìm kiếm */}
       <div className="search">
         <div className="search-container">
           <input
-          placeholder='Tìm kiếm'
-          type='text'
-          value={searchTerm}
-          onChange={handleSearchChange}
-          onKeyDown={handleSearchSubmit}
+            type="text"
+            placeholder={`Tìm kiếm ${getSearchPlaceholder()}...`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleSearchSubmit}
+            className="search-input"
           />
         </div>
       </div>
-
-      {/* Thông tin người dùng */}
       <div className="user-infor">
         <ul>
           <li>Ban Nội dung</li>
           <li>
-            <button
-              onClick={handleLogout}
-              className="button-logout"
-            >
+            <button onClick={handleLogout} className="button-logout">
               Đăng Xuất
             </button>
           </li>
@@ -101,4 +115,4 @@ function ContentHeader() {
   );
 }
 
-export default ContentHeader;
+export default HeaderContent;

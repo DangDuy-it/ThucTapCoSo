@@ -28,6 +28,7 @@ import ApprovedMovies from "./pages/ContentManager/ApprovedMovies";
 import PendingMovies from "./pages/ContentManager/PendingMovies";
 import ContentMovies from "./pages/ContentManager/ContentMovies";
 import TechnicalHome from "./pages/Technical/TechnicalHome";
+import EpisodesContent from './pages/ContentManager/EpisodesContent';
 
 export default function Layout() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || { role: "user" });
@@ -91,6 +92,11 @@ export default function Layout() {
                 <Route path="/content/movies/all" element={<ContentMovies/>}/>
                 <Route path="/content/movies/approved" element={<ApprovedMovies/>} />
                 <Route path="/content/movies/pending" element={<PendingMovies/>} />
+                <Route path="/content/episodes/:movie_id" element={<EpisodesContent />} />
+                <Route path="/content/movies/search-all" element={<ContentMovies />} />
+                <Route path="/content/movies/search-approved" element={<ApprovedMovies />} />
+                <Route path="/content/movies/search-pending" element={<PendingMovies />} />
+        
                 {/* Thêm route cho technical nếu có */}
                 <Route path="/technical/responsed" element={<TechnicalHome/>}/>
 

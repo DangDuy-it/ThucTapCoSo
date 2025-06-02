@@ -4,6 +4,7 @@ const movieController = require('../controllers/movieController');
 
 
 router.get('/api/movies/searchAdmin', movieController.searchMoviesForAdmin);
+router.get('/api/movies/searchContent', movieController.searchMoviesForContent);
 router.get('/api/movies/search', movieController.searchMovies); // Tìm kiếm phim theo tiêu đề hoặc thể loại
 router.get('/api/movies', movieController.getMovies); // Lấy danh sách phim cho người dùng ( chỉ approved )
 router.get('/api/movies/:id', movieController.getMovieDetails); // Lấy chi tiết phim kèm danh sách tập 
