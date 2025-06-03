@@ -138,7 +138,7 @@ function ReportBugForm() {
             </div>
             {error && <p className="error-message">{error}</p>}
             <p>
-                <Link to="/xem-response" className="view-reports-link">Xem lỗi của bạn</Link>
+                <Link to="/check-response" className="view-reports-link">Xem lỗi của bạn</Link>
             </p>
         </div>
     );
