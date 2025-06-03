@@ -39,11 +39,24 @@ function Profile() {
             navigate("/login");
             return;
         }
+        
+        if (!password) {
+            toast.info("Mật khẩu không thay đổi", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            setLoading(false);
+            return;
+        }
 
         try {
             const res = await axios.put(
                 "http://localhost:3001/api/user",
-                { user_name: userName, email, password: password || undefined },
+                { user_name: userName, email, password: password },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             localStorage.setItem("token", res.data.token);
