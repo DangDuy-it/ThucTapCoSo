@@ -8,6 +8,8 @@ import '../styles/Favorites.css';
 function Favorites(){
     const [favoriteMovies, setFavoriteMovies]= useState([]);
     const [loading, setLoading]= useState(true);
+    const [currentPage, setCurrentPage]= useState(1);
+    const moviesPerPage= 15;
     const navigate= useNavigate();
     
 
@@ -62,6 +64,16 @@ function Favorites(){
     if(loading){
         return <div>Đang tải danh sách phim yêu thích...</div>
     }
+    // Tính tổng số trang
+    const totalPages= Math.ceil(favoriteMovies.length/moviesPerPage);
+    // Tính danh sách phim hiện thị theo trang 
+    const indexOfLastMovie= currentPage * moviesPerPage;
+    const indexOfFirstMovie= indexOfLastMovie - moviesPerPage;
+    const currentMovies= favoriteMovies.slice(indexOfFirstMovie, indexOfLastMovie);
+
+    const handlePageChange= (pageNumber) =>{
+        setCurrentPage(pageNumber);
+    }
     return(
         <div className="favorite-movies-container">
             <h2>Danh sách phim yêu thích của bạn</h2>
@@ -74,7 +86,7 @@ function Favorites(){
             ):(
                 //Nếu không loading và danh sách không rỗng, hiện thị danh sách phim
                 <div className="movie-list">
-                    {favoriteMovies.map(movie =>(
+                    {currentMovies.map(movie =>(
                         <Link key={movie.movie_id} to = {`/movieDetail/${movie.movie_id}`} className="movie-card">
                             <img src={movie.image_url} alt={movie.title} />
                             <div className="movie-title">{movie.title}</div>
@@ -82,6 +94,19 @@ function Favorites(){
                     ))}
                 </div>
             )}
+            <div className="more">
+                <ul>
+                    {Array.from({length: totalPages}, (_, index) =>(
+                        <li key={index}>
+                            <button className={`page-button ${currentPage === index +1 ? 'active' :''}`} 
+                                onClick={()=> handlePageChange(index+1)}
+                                >
+                                {index+1}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 }

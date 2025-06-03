@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import "../styles/TechnicalHome.css";
 import { Link } from "react-router-dom";
-
-
+import { FilterContext } from '../components/FilterContext';
 
 const TechnicalHome = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { filterStatus } = useContext(FilterContext);
 
   const formatDate = (dateTimeString) => {
     const date = new Date(dateTimeString);
@@ -55,6 +55,11 @@ const TechnicalHome = () => {
     fetchBugReports();
   }, []);
 
+  const filteredReports = reports.filter(report => {
+    if (filterStatus === 'all') return true;
+    return report.status === filterStatus;
+  });
+
   if (loading) return <div className="p-4 text-center">Đang tải dữ liệu...</div>;
 
   return (
@@ -76,14 +81,14 @@ const TechnicalHome = () => {
           </tr>
         </thead>
         <tbody>
-          {reports.map((row, index) => (
+          {filteredReports.map((row, index) => (
             <tr key={row.report_id}>
               <td className="align-center">{index + 1}</td>
               <td className="align-center">{row.userEmail}</td>
               <td className="align-center">{formatDate(row.created_at)}</td>
               <td className={`align-center ${row.statusClass}`}>{row.statusDisplay}</td>
               <td className="align-center">
-                <Link to={`/technical/response/${row.report_id}`}>
+                <Link to={`/technical/detail/${row.report_id}`}>
                   <button className="view-button-styled">Xem báo lỗi</button>
                 </Link>
               </td>

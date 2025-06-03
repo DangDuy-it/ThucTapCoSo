@@ -78,13 +78,6 @@ function AnimeItem({movie_id, title, image_url, genre, year, duration, episodes,
                     Trạng thái: {status}
                 </div>
             </div>
-            {/* <div className="actions">
-                <Link to={`/admin/edit/${movie_id}`}>
-                    <button>Sửa thông tin phim</button>
-                </Link>
-                <button onClick={() => handleDelete(movie_id)}>Xóa Phim</button>
-            </div> */}
-
         </div>
     );
 }

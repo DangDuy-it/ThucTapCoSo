@@ -1,0 +1,133 @@
+.report-bug-form-styled {
+    background-color: #111;
+    color: #fff;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.report-bug-form-styled h2 {
+    color: #fff;
+    margin-bottom: 50px;
+    font-size: 24px;
+}
+
+.report-bug-form-styled p {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc;
+    font-size: 16px;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #212121;
+    color: #fff;
+    border: 1px solid #424242;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.description-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc;
+    font-size: 16px;
+}
+
+.description-input {
+    display: flex;
+    position: relative;
+}
+
+.description-input input[type="text"].no-resize {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #212121;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: none;
+    width: 100%;
+}
+
+.description-input .arrow-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #212121;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.description-input .arrow-button:hover {
+    background-color: #333;
+}
+
+
+.common-errors-list {
+    margin-top: 60px;
+}
+
+.common-errors-list h3 {
+    color: #ccc;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.common-errors-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.common-errors-list ul li {
+    padding: 8px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+    color: #fff;
+    font-size: 16px;
+}
+
+.common-errors-list ul li:last-child {
+    border-bottom: none;
+}
+
+.common-errors-list ul li:hover {
+    color: #e50914;
+}
+
+.error-message {
+    color: #e53935;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.view-reports-link {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.view-reports-link:hover {
+    opacity: 0.8;
+}

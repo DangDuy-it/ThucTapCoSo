@@ -66,8 +66,8 @@ function List() {
 
 function AnimeItem({ title, image_url }) {
     return (
-        <div className="anime-item">
-            <div className="anime-image">
+        <div className="anime-item-list">
+            <div className="anime-image-list">
                 <img 
                     src={image_url || '/placeholder.jpg'} 
                     alt={title}
@@ -76,8 +76,8 @@ function AnimeItem({ title, image_url }) {
                     }}
                 />
             </div>
-            <div className="anime-info">
-                <h3 className="title">{title}</h3>
+            <div className="anime-info-list">
+                <h3 className="title-list">{title}</h3>
             </div>
         </div>
     );

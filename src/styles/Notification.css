@@ -23,3 +23,9 @@
     color: cadetblue;
     font-weight: bold;
   }
+  .report span{
+    color: rgb(204, 54, 54);
+  }
+  .login span{
+    color: rgb(0, 136, 255);
+  }

@@ -1,0 +1,99 @@
+.user-xem-response-container {
+    background-color: #181818;
+    color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.user-xem-response-container h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.no-reports-message {
+    color: #ccc;
+    font-style: italic;
+}
+
+.reports-list {
+    list-style: none;
+    padding: 0;
+}
+
+.report-item {
+    background-color: #212121;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.report-item h3 {
+    color: #e0e0e0;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.created-at {
+    color: #757575;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.report-status {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.report-status.pending {
+    color: #ffc107;
+}
+
+.report-status.resolved {
+    color: #28a745;
+}
+
+.response-details {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+.response-details h4 {
+    color: #f8f9fa;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.response-content {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.response-date {
+    color: #f8f9fa;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.no-response {
+    color: #f44336;
+    font-style: italic;
+}
+
+.user-xem-response-loading {
+    color: #fff;
+    margin-top: 20px;
+}
+
+.user-xem-response-error {
+    color: #f44336;
+    margin-top: 20px;
+    font-weight: bold;
+}

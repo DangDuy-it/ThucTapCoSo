@@ -20,7 +20,7 @@
     display: block;
 }
 
-.anime-item{
+.anime-item-list{
     background-color: #333; /* Màu nền cho mỗi item phim */
     border-radius: 8px; /* Bo tròn góc */
     overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài */
@@ -30,22 +30,22 @@
     transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển động khi hover */
     cursor: pointer; /* Đổi con trỏ chuột thành pointer */
 }
-.anime-image :hover{
+.anime-image-list :hover{
     transform: scale(1.05);
 }
 
-.anime-image{
+.anime-image-list{
     height: 250px;
 
 }
-.anime-image img{
+.anime-image-list img{
     width: 100%; 
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
 }
 
-.anime-info {
+.anime-info-list {
     display: flex;
     justify-content: center;
     text-align: center;

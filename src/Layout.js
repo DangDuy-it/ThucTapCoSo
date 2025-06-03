@@ -27,8 +27,12 @@ import ListSearchMovie from "./pages/Admin/ListSearchMovie";
 import ApprovedMovies from "./pages/ContentManager/ApprovedMovies";
 import PendingMovies from "./pages/ContentManager/PendingMovies";
 import ContentMovies from "./pages/ContentManager/ContentMovies";
-import TechnicalHome from "./pages/Technical/TechnicalHome";
 import EpisodesContent from './pages/ContentManager/EpisodesContent';
+import BugList from "./pages/Technical/BugList";
+import BugResponse from "./pages/Technical/BugResponse";
+import ReportBug from "./pages/User/ReportBug";
+import CheckResponse from "./pages/User/CheckResponse";
+import { FilterProvider } from "./components/FilterContext";
 
 export default function Layout() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || { role: "user" });
@@ -64,6 +68,7 @@ export default function Layout() {
 
     return (
       <>
+      <FilterProvider>
         {renderHeader()}
         <Routes>
                 {/* Các Route của Người dùng */}
@@ -77,6 +82,8 @@ export default function Layout() {
                 <Route path="/movies/favorites" element={<Favorites/>}/>
                 <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
                 <Route path="/movies/watch-history" element={<WatchHistoryList />} />
+                <Route path="/report-bug" element={<ReportBug />} />
+                <Route path="/check-response" element={<CheckResponse/>} />
                 <Route path="/profile" element={<Profile />} />
 
                 {/* Các Route của Quản trị viên */}
@@ -98,10 +105,13 @@ export default function Layout() {
                 <Route path="/content/movies/search-approved" element={<ApprovedMovies />} />
                 <Route path="/content/movies/search-pending" element={<PendingMovies />} />
         
-                {/* Các Route của Kỹ thuật viên */}
-                <Route path="/technical/responsed" element={<TechnicalHome/>}/>
-
+                {/* Các Route của Kỹ thuật viên */}       
+                <Route path="/technical" element={<BugList />} />
+                <Route path="/technical/responsed" element={<BugList />} />
+                <Route path="/technical/unresponse" element={<BugList />} />
+                <Route path="/technical/detail/:report_id" element={<BugResponse />} />
         </Routes>
+     </FilterProvider>
       </>
     );
   }

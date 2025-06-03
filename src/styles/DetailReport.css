@@ -1,0 +1,140 @@
+.detail-report-container {
+  background-color: transparent;
+  color: #f5f6fa;
+  padding: 20px;
+  border-radius: 0;
+  width: auto;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.subtitle {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  color: #f5f6fa;
+  text-align: left;
+  font-weight: bold;
+}
+
+.info-item {
+  margin-bottom: 8px;
+  padding-left: 30px;
+  font-size: 0.95em;
+  align-items: baseline;
+  display: flex;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 8px;
+  color: #f5f6fa;
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.value {
+  word-break: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.95em;
+  font-weight: bold;
+}
+
+.info-item:nth-child(3) .value {
+  text-decoration: underline;
+}
+
+.status-resolved {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.response-button {
+  background-color: rgb(91, 30, 2);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 15px;
+  width: auto;
+  margin-left: 30px;
+  font-size: 0.95em;
+  font-weight: bold;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.response-button:hover {
+  background-color: rgb(79, 40, 12);
+}
+
+.loading, .error {
+  color: #f5f6fa;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.response-display {
+  background-color: rgb(84, 40, 8);
+  border: 1px solid #fff;
+  padding: 15px;
+  margin: 10px 0;
+  color: #fff;
+  border-radius: 15px;
+}
+
+.response-display b {
+  font-weight: bold;
+  color: #ddd; 
+}
+
+.response-signature {
+  margin-top: 10px;
+  color: #ddd;
+  font-style: bold;
+}
+
+.reply-form {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgb(58, 29, 8);
+  border-radius: 8px;
+}
+
+.reply-form-textarea {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgb(58, 29, 8);
+  color: #fff;
+  border: 1px solid #777;
+}
+
+.reply-form-button {
+  background-color: rgb(80, 30, 20);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reply-form-button:hover {
+  background-color: rgba(58, 29, 8, 0.8);
+}
