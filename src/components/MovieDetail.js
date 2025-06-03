@@ -146,7 +146,7 @@ const MovieDetail = () => {
             <div className="movie-background">
                 <img src={movie.background_url} alt="Background" className="background-img" />
                 <div className="movie-header">
-                    <div className="movie-detail-poster">
+                    <div className="movie-detail-posterr">
                         <img src={movie.image_url} alt={movie.title} />
                         <div className="movie-button">
                             {newestEpisode ? (

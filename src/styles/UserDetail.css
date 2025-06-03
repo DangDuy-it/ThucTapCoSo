@@ -37,6 +37,15 @@
     font-weight: 600;
     color: #ccc;
 }
+.save{
+    background-color: #08aeea;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 0 10px 0 10px;
+}
+.save:hover{
+    background-color: #066693;
+}
 
 .actions {
     margin-top: 25px;
@@ -69,3 +78,4 @@ button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
+

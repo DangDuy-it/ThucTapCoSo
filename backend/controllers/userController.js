@@ -4,7 +4,7 @@ const db = require('../config/db');
 const getUsers = (req, res) => {
     const sql = `SELECT user_id, user_name, email, role_id, created_at, TRIM(status) AS status
                 FROM users
-                WHERE role_id=4
+                WHERE role_id IN (2,3,4) 
                 ORDER BY created_at DESC
                 `;
   
@@ -63,6 +63,35 @@ const updateUserStatus = (req, res) => {
         });
     });
 };
+
+const updateRole= (req,res)=>{
+    const userId= req.params.user_id;
+    const {role_id}= req.body;
+
+    if (![2,3,4].includes(role_id)){
+        return res.status(400).json({message:"role_id không hợp lệ"});
+    }
+    const sql=`UPDATE users SET role_id = ? WHERE user_id = ?`;
+    db.query(sql, [role_id, userId], (err, result)=>{
+        if(err){
+            console.error("Lỗi cập nhật vai trò người dùng:",err);
+            return res.status(500).json({ error: err.message });
+        }
+        const getUserSql = 'SELECT user_id, user_name, email, role_id, created_at, TRIM(status) AS status FROM users WHERE user_id = ?';
+        db.query(getUserSql, [userId], (err, result)=>{
+            if (err){
+                console.error("Lỗi lấy thông tin user sau khi cập nhật role:",err);
+                return res.status(500).json({ error: err.message });
+            }
+            if (result.length===0){
+                return res.status(404).json({message:"Không tìm thấy user"});
+            }
+            res.status(200).json(result[0]);
+        })
+    })
+
+}
+
 const searchUsers= (req, res)=>{
     const searchTerm= req.query.userName;
     if (!searchTerm){
@@ -75,7 +104,7 @@ const searchUsers= (req, res)=>{
                     created_at,
                     TRIM(status) as status
                 FROM users
-                WHERE role_id=4 AND user_name LIKE ?
+                WHERE role_id IN (2,3,4) AND user_name LIKE ?
                 ORDER BY created_at DESC`;
     const searchPattern = `%${searchTerm}%`;
     db.query(sql, [searchPattern], (err,results) =>{
@@ -95,5 +124,6 @@ module.exports = {
     getUsers,
     getUserById,
     updateUserStatus,
+    updateRole,
     searchUsers
 };

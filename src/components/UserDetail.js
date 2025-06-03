@@ -33,6 +33,8 @@ function UserDetail(){
     useEffect(()=>{
         fetchUser();
     }, [userId]);
+
+
     // Hàm cập nhật trạng thái
     const updateStatus = (newStatus) => {
         fetch(`http://localhost:3001/api/users/${userId}/status`, {
@@ -58,13 +60,39 @@ function UserDetail(){
                 alert('Lỗi cập nhật trạng thái: ' + err.message);
             });
     };
-
+    const handleUpdateRole=()=>{
+        fetch(`http://localhost:3001/api/users/${userId}/role`,{
+            method:'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({role_id: parseInt(user.role_id)}),
+        })
+            .then((res)=>{
+                if(!res.ok) throw new Error('Không thể cập nhật vai trò');
+                return res.json();
+            })
+            .then((data)=>{
+                setUser(data);
+                alert('Cập nhật vai trò thành công');
+            })
+            .catch((err)=>{
+                console.error('Lỗi cập nhật vai trò:',err);
+                alert('Lỗi cập nhật vai trò:'+err.message);
+            });
+    }
 
     if (loading) return <div>Đang tải...</div>;
     if(error) return <div>Lỗi:{error}</div>
     if (!user) {
         return <div>Không tìm thấy thông tin người dùng.</div>;
     }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUser(prev => ({
+            ...prev,
+            [name]: name === 'role_id' ? parseInt(value) : value // Đảm bảo role_id là số
+        }));
+    };
+
 
     const normalizedStatus = (user.status || '').trim().toLowerCase();
     const isActive = normalizedStatus === 'active';
@@ -82,7 +110,20 @@ function UserDetail(){
                     <li><strong>Id tài khoản: </strong> {user.user_id}</li>
                     <li><strong>Tên tài khoản: </strong> {user.user_name}</li>
                     <li><strong>Email: </strong>{user.email}</li>
-                    <li><strong>Vai trò: </strong>{user.role_id == 1 ? 'Admin' : 'User'}</li>
+                    <li>
+                        <strong className='role_id'>Vai trò:</strong>
+                            <select
+                                id="role_id"
+                                name="role_id"
+                                value={user.role_id}
+                                onChange={handleChange}
+                                >
+                                <option value={2}>Technical</option>
+                                <option value={3}>Content</option>
+                                <option value={4}>User</option>
+                            </select>
+                        <button className='save' onClick={handleUpdateRole}>Lưu</button>
+                    </li>
                     <li><strong>Ngày tạo tài khoản: </strong>{new Date(user.created_at).toLocaleDateString('vi-VN')}</li>
                     <li><strong>Trạng thái tài khoản: </strong>{isActive ? 'Active' : 'Banned'}</li>
                 </ul>

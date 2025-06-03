@@ -11,6 +11,19 @@ function ListUser() {
         .then((data) => setUsers(data))
         .catch((err) => console.error('Lỗi lấy danh sách user:', err));
     }, []);
+
+  const getRoleName = (role_id) => {
+  switch (role_id) {
+    case 2:
+      return 'Technical';
+    case 3:
+      return 'Content';
+    case 4:
+      return 'User';
+    default:
+      return 'Unknown';
+  }
+};
   return (
     <div className="list-users">
       <div className="list-user-tag">
@@ -35,7 +48,7 @@ function ListUser() {
               <ListItem
                 userName={user.user_name}
                 email={user.email}
-                role={user.role_id === 1 ? 'Admin' : 'User'}
+                role={getRoleName(user.role_id)}
                 status={user.status}
               />
             </Link>
