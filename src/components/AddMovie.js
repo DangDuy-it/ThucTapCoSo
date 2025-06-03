@@ -75,7 +75,7 @@ function AddMovie(){
             <h2>Thêm Thông Tin Phim</h2>
             {/* Thêm onSubmit handler vào form */}
             <form className="add-movie-form" onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div className="form-movie">
                     <label>Tên phim:</label>
                     <input
                         type="text"
@@ -86,7 +86,7 @@ function AddMovie(){
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-movie">
                     <label>Thể loại:</label>
                     <input
                         type="text"
@@ -97,7 +97,7 @@ function AddMovie(){
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-movie">
                     <label>Năm phát hành:</label>
                     <input
                         type="number"
@@ -108,7 +108,7 @@ function AddMovie(){
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-movie">
                     <label>Thời lượng (phút):</label>
                     <input
                         type="number"
@@ -119,7 +119,7 @@ function AddMovie(){
                         required
                     />
                 </div>
-                 <div className="form-group">
+                 <div className="form-movie">
                     <label>Mô tả:</label>
                     <textarea
                         id="description"
@@ -130,7 +130,7 @@ function AddMovie(){
                         required
                     ></textarea>
                 </div>
-                <div className="form-group">
+                <div className="form-movie">
                     <label>Image URL (Poster):</label>
                     <input
                         type="text"
@@ -141,7 +141,7 @@ function AddMovie(){
                         required
                     />
                 </div>
-                 <div className="form-group">
+                 <div className="form-movie">
                     <label>Background URL:</label>
                     <input
                         type="text"

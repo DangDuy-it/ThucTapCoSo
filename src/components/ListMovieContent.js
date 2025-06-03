@@ -5,6 +5,8 @@ import '../styles/ListMovie.css';
 
 function AdminListAll() {
   const [animeList, setAnimeList] = useState([]);
+  const [currentPage, setCurrentPage]= useState(1);
+  const moviesPerPage= 5;
   const location = useLocation();
 
   const fetchMovies = useCallback(() => {
@@ -29,6 +31,16 @@ function AdminListAll() {
   useEffect(() => {
     fetchMovies();
   }, [fetchMovies]);
+  // Tính tổng số trang
+  const totalPages= Math.ceil(animeList.length/moviesPerPage);
+  // Tính danh sách phim hiện thị theo trang 
+  const indexOfLastMovie= currentPage * moviesPerPage;
+  const indexOfFirstMovie= indexOfLastMovie - moviesPerPage;
+  const currentMovies= animeList.slice(indexOfFirstMovie, indexOfLastMovie);
+
+  const handlePageChange= (pageNumber) =>{
+      setCurrentPage(pageNumber);
+  }
 
   return (
     <div className="list-movies">
@@ -42,13 +54,26 @@ function AdminListAll() {
       </div>
       <div className="list-movie">
         {animeList.length > 0 ? (
-          animeList.map(item => (
+          currentMovies.map(item => (
             <AnimeItem key={item.movie_id} {...item} onDelete={fetchMovies} />
           ))
         ) : (
           <p className="text-center text-gray-500">Không có phim nào.</p>
         )}
       </div>
+      <div className="more">
+          <ul>
+              {Array.from({length: totalPages}, (_, index) =>(
+                  <li key={index}>
+                      <button className={`page-button ${currentPage === index +1 ? 'active' :''}`} 
+                          onClick={()=> handlePageChange(index+1)}
+                          >
+                          {index+1}
+                      </button>
+                  </li>
+              ))}
+          </ul>
+      </div>     
     </div>
   );
 }

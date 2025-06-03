@@ -91,35 +91,35 @@ function EditMovie() {
                 </div>
                 {/* Các trường input như trước */}
                 <div className="form-groups">
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="title">Tên phim:</label>
                         <input type="text" id="title" name="title" value={movie.title} onChange={handleChange} required />
                     </div>
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="genre">Thể loại:</label>
                         <input type="text" id="genre" name="genre" value={movie.genre} onChange={handleChange} />
                     </div>
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="release_year">Năm phát hành:</label>
                         <input type="number" id="release_year" name="release_year" value={movie.release_year} onChange={handleChange} />
                     </div>
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="duration">Thời lượng (Phút):</label>
                         <input type="number" id="duration" name="duration" value={movie.duration} onChange={handleChange} />
                     </div>
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="description">Mô tả:</label>
                         <input type="text" id="description" name="description" value={movie.description} onChange={handleChange} />
                     </div>
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="status">Trạng thái:</label>
                         <input type="text" name="stauts" id="status" value={movie.status} disabled />
                     </div>
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="image_url">URL ảnh:</label>
                         <input type="text" id="image_url" name="image_url" value={movie.image_url} onChange={handleChange} />
                     </div>
-                    <div className="form-group">
+                    <div className="form-movie">
                         <label htmlFor="background_url">URL ảnh:</label>
                         <input type="text" id="background_url" name="background_url" value={movie.background_url} onChange={handleChange} />
                     </div>

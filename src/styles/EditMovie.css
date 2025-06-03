@@ -89,21 +89,21 @@
     background-color: #3d444a;
 }
 
-.form-group{
+.form-movie{
     display: flex;
     flex-direction: column;
     grid-column: 2;
 }
 
-.form-group label{
+.form-movie label{
     color: green;
     font-weight: bold;
     margin-bottom: 10px;
     text-align: left;;
 }
 
-.form-group input[type='text'],
-.form-group input[type='number']{
+.form-movie input[type='text'],
+.form-movie input[type='number']{
     padding: 10px;
     border: 1px solid #3d444a;
     border-radius: 10px;
@@ -113,7 +113,7 @@
     box-sizing: border-box;
     width: 100%;
 }
-.form-group select{
+.form-movie select{
     padding: 10px;
     border: 1px solid #3d444a;
     border-radius: 10px;
@@ -123,8 +123,8 @@
     box-sizing: border-box;
     width: 100%;
 }
-.form-group input[type='text']:hover,
-.form-group input[type='number']:hover{
+.form-movie input[type='text']:hover,
+.form-movie input[type='number']:hover{
     border-color: #e84118;
     outline: none;
     box-shadow: 0 0 5px rgba(232, 65, 24, 0.5);

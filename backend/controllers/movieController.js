@@ -87,7 +87,8 @@ const getMoviesAdmin = (req, res) => {
             COUNT(e.episode_id) AS episodes
         FROM movies m
         LEFT JOIN episodes e ON m.movie_id = e.movie_id
-        GROUP BY m.movie_id
+        GROUP BY m.movie_id 
+        ORDER BY m.movie_id DESC
     `;
 
     db.query(query, (err, results) => {
