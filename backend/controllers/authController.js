@@ -71,7 +71,7 @@ const login = (req, res) => {
         const user = result[0];
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
-            return res.status(401).json({ error: 'Email hoặc mật khẩu không đúng' });
+            return res.status(401).json({ error: 'Mật khẩu không đúng' });
         }
 
         const token = jwt.sign(
@@ -106,16 +106,7 @@ const updateUser = async (req, res) => {
                 if (err) {
                     console.log('Lỗi kiểm tra email/user_name:', err);
                     return res.status(500).json({ error: err.message });
-                }
-                if (result.length > 0) {
-                    const existingUser = result[0];
-                    if (existingUser.email === email) {
-                        return res.status(400).json({ error: 'Email đã được sử dụng' });
-                    }
-                    if (existingUser.user_name === user_name) {
-                        return res.status(400).json({ error: 'Tên người dùng đã được sử dụng' });
-                    }
-                }
+                }       
 
                 let hashedPassword = null;
                 if (password) {

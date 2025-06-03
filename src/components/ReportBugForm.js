@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/ReportBugForm.css';
-import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom'; // Import Link
 
 function ReportBugForm() {
     const [title, setTitle] = useState('');
@@ -14,16 +13,6 @@ function ReportBugForm() {
         "Trình duyệt không được hỗ trợ",
         "Web không hoạt động"
     ];
-    const navigate = useNavigate();
-    const storedUser = localStorage.getItem('user');
-    const isLoggedIn = !!storedUser;
-
-    useEffect(() => {
-        if (!isLoggedIn) {
-            toast.info("Bạn cần đăng nhập để báo cáo lỗi.");
-            navigate('/login');
-        }
-    }, [isLoggedIn, navigate]);
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -40,12 +29,6 @@ function ReportBugForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!isLoggedIn) {
-            toast.error("Bạn cần đăng nhập để báo cáo lỗi.");
-            navigate('/login');
-            return;
-        }
-
         if (!title.trim()) {
             setError('Vui lòng nhập tiêu đề lỗi.');
             return;
@@ -57,6 +40,7 @@ function ReportBugForm() {
         }
 
         try {
+            const storedUser = localStorage.getItem('user');
             const userId = storedUser ? JSON.parse(storedUser)?.user_id : null;
 
             const response = await fetch('http://localhost:3001/api/bugs', {
@@ -88,13 +72,12 @@ function ReportBugForm() {
                 <h2>Báo cáo sự cố thành công!</h2>
                 <p>Cảm ơn bạn đã thông báo. Chúng tôi sẽ xem xét vấn đề này sớm nhất có thể.</p>
                 <p>
-                    <Link to="/xem-response" className="view-reports-link">Xem lỗi của bạn tại đây</Link>
+                    <Link to="/check-response" className="view-reports-link">Xem lỗi của bạn tại đây</Link>
                 </p>
             </div>
         );
     }
 
-    // Nếu đã đăng nhập, hiển thị form báo cáo lỗi
     return (
         <div className="report-bug-form-styled">
             <h2>Liên hệ với chúng tôi</h2>
@@ -138,7 +121,7 @@ function ReportBugForm() {
             </div>
             {error && <p className="error-message">{error}</p>}
             <p>
-                <Link to="/xem-response" className="view-reports-link">Xem lỗi của bạn</Link>
+                <Link to="/check-response" className="view-reports-link">Xem lỗi của bạn</Link>
             </p>
         </div>
     );
