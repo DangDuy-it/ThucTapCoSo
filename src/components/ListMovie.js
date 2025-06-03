@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 function AdminList() {
     const [animeList, setAnimeList] = useState([]);
-
+    const [currentPage, setCurrentPage]= useState(1);
+    const moviesPerPage= 5;
     useEffect(() => {
         axios.get('http://localhost:3001/api/moviesad')
             .then(res => {
@@ -13,19 +14,23 @@ function AdminList() {
             })
             .catch(err => console.error("Lỗi:", err));
     }, []);
+    // Tính tổng số trang
+    const totalPages= Math.ceil(animeList.length/moviesPerPage);
+    // Tính danh sách phim hiện thị theo trang 
+    const indexOfLastMovie= currentPage * moviesPerPage;
+    const indexOfFirstMovie= indexOfLastMovie - moviesPerPage;
+    const currentMovies= animeList.slice(indexOfFirstMovie, indexOfLastMovie);
 
+    const handlePageChange= (pageNumber) =>{
+        setCurrentPage(pageNumber);
+    }
     return (
         <div className="list-movies">
             <div className="list-movie-tag">
                 <li>Quản lý phim</li>
             </div>
-            {/* <div className="button-add">
-                <Link to={`/admin/add`}>
-                    <button>THÊM PHIM</button>
-                </Link>
-            </div> */}
             <div className="list-movie">
-                {animeList.map((item) => (
+                {currentMovies.map((item) => (
                     <Link
                         to={`/admin/moviedetail/${item.movie_id}`}
                         key={item.movie_id}
@@ -44,6 +49,19 @@ function AdminList() {
                     </Link>
                 ))}
             </div>
+            <div className="more">
+                <ul>
+                    {Array.from({length: totalPages}, (_, index) =>(
+                        <li key={index}>
+                            <button className={`page-button ${currentPage === index +1 ? 'active' :''}`} 
+                                onClick={()=> handlePageChange(index+1)}
+                                >
+                                {index+1}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>            
         </div>
     );
 }
