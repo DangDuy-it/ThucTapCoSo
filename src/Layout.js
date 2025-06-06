@@ -33,6 +33,7 @@ import BugResponse from "./pages/Technical/BugResponse";
 import ReportBug from "./pages/User/ReportBug";
 import CheckResponse from "./pages/User/CheckResponse";
 import { FilterProvider } from "./components/FilterContext";
+import Forgot from "./pages/User/Forgot";
 
 export default function Layout() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || { role: "user" });
@@ -85,6 +86,7 @@ export default function Layout() {
                 <Route path="/report-bug" element={<ReportBug />} />
                 <Route path="/check-response" element={<CheckResponse/>} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/forgot-password" element={<Forgot />} />
 
                 {/* Các Route của Quản trị viên */}
                 <Route path="/admin/manage-user" element={<ManageUser />} />

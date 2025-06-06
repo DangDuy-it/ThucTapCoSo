@@ -67,7 +67,7 @@ function LoginForm() {
                         navigate("/content/movies/all");
                         break;
                     case "technical":
-                        navigate("/technical/unresponse");
+                        navigate("/technical/responsed");
                         break;
                     case "user":
                     default:
@@ -105,7 +105,7 @@ function LoginForm() {
                     required
                 />
                 {error && <p className="error-message">{error}</p>}
-                <Link to="/forgot-password" className="link-style">
+                <Link to="/forgot-password" className="forgot">
                     Quên mật khẩu?
                 </Link>
                 <button type="submit" className="btn" disabled={loading}>
